@@ -26,7 +26,13 @@ sidebar: false
 # Publications
 
 1.  Altunoglu, B., & Batur Sir, G. D. (2024). Multi-objective location-distribution optimization in blood supply chain: an application in Turkiye. *BMC Public Health*, *24*(1), 1-15.
-2.  
+2.  Altunoğlu, B., Batur Sir, G. D., & Akınet, M. (2024, October 2-4). *Deprem ve sel senaryolarında uçak ve helikopterlerle acil malzeme tedariğine yönelik bir matematiksel model önerisi*. 43. Yöneylem Araştırması ve Endüstri Mühendisliği Ulusal Kongresi.
+3.  ALTUNOĞLU, B., BATUR SİR, G. D., & UTKU, D. H. (2024). Portfolio Optimization for Renewable Energy Planning  An Application in Turkey. Presented at the 7. INTERNATIONAL ANKARA MULTIDISCIPLINARY STUDIES CONGRESS, Ankara.
+4.  M. AKINET and B. ALTUNOĞLU, “Factors Influencing Civil Aircraft Spare Parts Purchasing Decision  A Multi Criteria Study of Turkish Suppliers,” presented at the 4. International Congress on Aviation Management (4th ICAM), Eskişehir, 2024.
+5.  ALTUNOĞLU, B., & BATUR SİR, G. D. (2023). Araç Yükleme Ve Rotalama Problemleri İçin Çok Amaçlı Matematiksel Model Önerisi. Presented at the 42. Yöneylem Araştırması ve Endüstri Mühendisliği Ulusal Kongresi, Gaziantep.
+6.  ALTUNOĞLU, B., & BATUR SİR, G. D. (2022). Kan Merkezi Yer Seçimi Problemi İçin Çok Amaçlı Bir Matematiksel Model Önerisi. Presented at the 41. Yöneylem Araştırması ve Endüstri Mühendisliği Ulusal Kongresi, Denizli.
+7.  DEMİRCİ, G., ALTUNOĞLU, B., & GÜNER, G. G. (n.d.). Latest Heuristic Solution Approaches for the Analog Circuit Design Optimization  A Literature Review. Presented at the The 4th International Engineering Research Symposium (INERS’22) .
+8.  UTKU, D. H., & ALTUNOĞLU, B. (2020). VEHICLE AND DRIVER SCHEDULING PROBLEM USING Ɛ-CONSTRAINT IN PUBLIC TRANSPORTATION. Presented at the INTERNATIONAL CONFERENCE ON MATHEMATICS AND ITS APPLICATIONS IN SCIENCE AND ENGINEERING (ICMASE 2020), Ankara.
 
 # Competencies
 
