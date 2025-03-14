@@ -503,8 +503,7 @@ $max
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>statistics_sapply <span class="ot">&lt;-</span> <span class="fu">sapply</span>(mtcars, compute_stats)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(statistics_sapply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(statistics_sapply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         mpg      cyl      disp     hp       drat      wt       qsec    
 mean     20.09062 6.1875   230.7219 146.6875 3.596563  3.21725  17.84875
@@ -521,34 +520,9 @@ IQR      1         1         1         2
 min      0         0         3         1       
 max      1         1         5         8       </code></pre>
 </div>
-</div>
-<p>Applying compute_stats using sapply()</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>statistics_sapply <span class="ot">&lt;-</span> <span class="fu">sapply</span>(mtcars, compute_stats)</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>statistics_apply <span class="ot">&lt;-</span> <span class="fu">apply</span>(mtcars, <span class="at">MARGIN =</span> <span class="dv">2</span>, compute_stats)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(statistics_sapply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         mpg      cyl      disp     hp       drat      wt       qsec    
-mean     20.09062 6.1875   230.7219 146.6875 3.596563  3.21725  17.84875
-median   19.2     6        196.3    123      3.695     3.325    17.71   
-variance 36.3241  3.189516 15360.8  4700.867 0.2858814 0.957379 3.193166
-IQR      7.375    4        205.175  83.5     0.84      1.02875  2.0075  
-min      10.4     4        71.1     52       2.76      1.513    14.5    
-max      33.9     8        472      335      4.93      5.424    22.9    
-         vs        am        gear      carb    
-mean     0.4375    0.40625   3.6875    2.8125  
-median   0         0         4         2       
-variance 0.2540323 0.2489919 0.5443548 2.608871
-IQR      1         1         1         2       
-min      0         0         3         1       
-max      1         1         5         8       </code></pre>
-</div>
-</div>
-<p>Applying compute_stats using apply()</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>statistics_apply <span class="ot">&lt;-</span> <span class="fu">apply</span>(mtcars, <span class="at">MARGIN =</span> <span class="dv">2</span>, compute_stats)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(statistics_apply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(statistics_apply)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$mpg
 $mpg$mean
