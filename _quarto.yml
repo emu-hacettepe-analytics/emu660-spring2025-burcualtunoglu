@@ -19,11 +19,13 @@ website:
             href: assignments.qmd
           - text: Project
             href: project.qmd
+            
     tools:
       - icon: github
-        href: https://github.com/cagridurmaz
+        href: https://emu-hacettepe-analytics.github.io/emu660-spring2025-burcualtunoglu/
       - icon: linkedin
-        href: https://www.linkedin.com/in/durmazcagri/
+        href: https://www.linkedin.com/in/burcu-altunoğlu-355613173/
+
   sidebar:
     - title: "Assignments"
       style: "docked"
@@ -37,17 +39,15 @@ website:
   page-footer:
     center: "Hacettepe IE - EMU660 - Spring 2024" 
     border: true
-
 format:
   html:
     toc: true
     toc-location: left
     theme: 
-      light: simplex 
-      dark: cyborg
+       light: flatly  
+      dark: darkly  
     css: styles.css
 
-resources:
-  - "Cagri_Durmaz.pdf"
 
 editor: visual
+
