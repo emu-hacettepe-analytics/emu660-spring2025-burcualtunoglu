@@ -26,7 +26,7 @@ sidebar: false
 # Publications
 
 1.  Altunoglu, B., & Batur Sir, G. D. (2024). Multi-objective location-distribution optimization in blood supply chain: an application in Turkiye. *BMC Public Health*, *24*(1), 1-15.
-2.  Altunoğlu, B., Batur Sir, G. D., & Akınet, M. (2024, October 2-4). *Deprem ve sel senaryolarında uçak ve helikopterlerle acil malzeme tedariğine yönelik bir matematiksel model önerisi*. 43. Yöneylem Araştırması ve Endüstri Mühendisliği Ulusal Kongresi.
+2.  Altunoğlu, B., Batur Sir, G. D., & Akınet, M. (2024, October 2-4). Deprem ve sel senaryolarında uçak ve helikopterlerle acil malzeme tedariğine yönelik bir matematiksel model önerisi. 43. Yöneylem Araştırması ve Endüstri Mühendisliği Ulusal Kongresi.
 3.  ALTUNOĞLU, B., BATUR SİR, G. D., & UTKU, D. H. (2024). Portfolio Optimization for Renewable Energy Planning  An Application in Turkey. Presented at the 7. INTERNATIONAL ANKARA MULTIDISCIPLINARY STUDIES CONGRESS, Ankara.
 4.  M. AKINET and B. ALTUNOĞLU, “Factors Influencing Civil Aircraft Spare Parts Purchasing Decision  A Multi Criteria Study of Turkish Suppliers,” presented at the 4. International Congress on Aviation Management (4th ICAM), Eskişehir, 2024.
 5.  ALTUNOĞLU, B., & BATUR SİR, G. D. (2023). Araç Yükleme Ve Rotalama Problemleri İçin Çok Amaçlı Matematiksel Model Önerisi. Presented at the 42. Yöneylem Araştırması ve Endüstri Mühendisliği Ulusal Kongresi, Gaziantep.
@@ -50,4 +50,4 @@ R, Quarto, Git, Python, Arena
 
 -   Reading Books
 
-# 
+

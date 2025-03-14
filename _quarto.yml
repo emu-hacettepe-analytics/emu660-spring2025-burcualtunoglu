@@ -37,7 +37,7 @@ website:
   page-navigation: true
   back-to-top-navigation: true
   page-footer:
-    center: "Hacettepe IE - EMU660 - Spring 2024" 
+    center: "Hacettepe IE - EMU660 - Spring 2025" 
     border: true
 format:
   html:
@@ -45,7 +45,7 @@ format:
     toc-location: left
     theme: 
        light: flatly  
-      dark: darkly  
+       dark: darkly  
     css: styles.css
 
 
