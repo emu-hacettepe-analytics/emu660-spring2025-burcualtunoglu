@@ -39,9 +39,12 @@ for (col in names(mtcars)) {
 
 statistics_sapply <- sapply(mtcars, compute_stats)
 
+print("Applying compute_stats Using sapply()")
+
 print(statistics_sapply)
 
 statistics_apply <- apply(mtcars, MARGIN = 2, compute_stats)
+print("Applying compute_stats Using apply()")
 
 print(statistics_apply)
 
