@@ -44,8 +44,8 @@ format:
     toc: true
     toc-location: left
     theme: 
-      light: simplex 
-      dark: cyborg
+       light: flatly  # Açık mod teması
+      dark: darkly   # Koyu mod teması
     css: styles.css
 
 

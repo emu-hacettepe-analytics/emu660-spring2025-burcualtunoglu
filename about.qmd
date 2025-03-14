@@ -38,8 +38,16 @@ sidebar: false
 
 R, Quarto, Git, Python, Arena
 
-# Hobbies
-
 # **Resume**
 
 [Burcu Altunoglu-CV](docs/Burcu Altunoglu_CV.pdf)
+
+# Hobbies
+
+-   Listening to Podcasts or Audiobooks
+
+-   Playing Video Games
+
+-   Reading Books
+
+# 
