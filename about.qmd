@@ -33,3 +33,7 @@ sidebar: false
 R, Quarto, Git, Python, Arena
 
 # Hobbies
+
+# **Resume**
+
+[Burcu Altunoglu-CV](docs/Burcu Altunoglu_CV.pdf)
