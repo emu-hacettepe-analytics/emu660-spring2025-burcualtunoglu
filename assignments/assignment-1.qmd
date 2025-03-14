@@ -44,9 +44,8 @@ print("Applying compute_stats Using sapply()")
 print(statistics_sapply)
 
 statistics_apply <- apply(mtcars, MARGIN = 2, compute_stats)
-print("Applying compute_stats Using apply()")
+print("Applying compute_stats Using apply()" <- statistics_apply )
 
-print(statistics_apply)
 
 ```
 
