@@ -8,33 +8,28 @@ sidebar: false
 # Education
 
 -   B.S., Industrial Engineering, University of Turkish Aeronautical Association, Turkey, 2015-2020
--   M.S., Industrial Engineering, Gazi University, Turkey, 20xx - ongoing.
+-   M.S., Industrial Engineering, Gazi University, Turkey, 2021 - 2024.
 -   Ph.D.., Industrial Engineering, Hacettepe University, Turkey, 2024 - ongoing.
 
 # Work Experience
 
 ## Employements
 
-1.  Firm xxx, position xx, year xxx
-
-2.  Firm yyy, position yyy, year yyy
+1.  University of Turkish Aeronautical Association, Research Assistant, year 2024 - ongoing
 
 ## Internships
 
-1.  Firm aaa, position xx, year xxx
+1.  MODALIFE, Intern at Production Planning Department, year 2019
 
-2.  Firm bbb, position yyy, year yyy
-
-# Projects
-
-1.  TUBİTAK 1001..........................
+2.  MODALIFE, Intern at Production Planning Department, year 2018
 
 # Publications
 
-1.  Dasdemir, E., Batta, R., Koksalan, M., Tezcaner Ozturk, D. (2022) “UAV Routing for Reconnaissance Mission: A Multi-Objective Orienteering Problem with Time-Dependent Prizes and Multiple Connections”, Computers & Operations Research, 145: 105882.
+1.  Altunoglu, B., & Batur Sir, G. D. (2024). Multi-objective location-distribution optimization in blood supply chain: an application in Turkiye. *BMC Public Health*, *24*(1), 1-15.
+2.  
 
 # Competencies
 
-R, Quarto, Git, Python
+R, Quarto, Git, Python, Arena
 
 # Hobbies
