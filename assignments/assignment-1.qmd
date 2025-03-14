@@ -4,12 +4,37 @@ title: "Assignment 1"
 
 # Assignment 1
 
+## (a) Summary of "Veri Bilimi ve Endüstri Mühendisliği Üzerine Sohbetler - Baykal Hafızoğlu & Erdi Daşdemir"
+
+Data analytics and operations research are related to industrial engineering in four main categories: descriptive, diagnostic, predictive and prescriptive analytics. While artificial intelligence and machine learning have made great advances in the field of predictive analytics in recent years, optimization problems are still dependent on the human factor. Hafızoğlu's career spans a wide range of areas such as supply chain optimization, dynamic pricing and credit scoring systems, emphasizing the need for accurate problem definition, efficient model deployment and user-friendly interfaces for academic models to be effective in the business world. In particular, early prototyping and a continuous feedback loop are recommended to increase the adoption of optimization models.
+
+Although startup ventures in optimization and data science are on the rise in Turkey, investments are limited compared to developed countries. Mathematical modeling and software development skills are critical for those who want to pursue a career in this field. Gaining competence in Python and optimization techniques, deepening analytical skills with a master's or PhD education for those who want to advance in the academic world, and gaining applied technical competencies for those who want to get an early start in professional life will provide a competitive advantage. In conclusion, Hafızoğlu's talk sheds light on the critical relationships between industrial engineering and data science and emphasizes that technical knowledge, application processes and user experience must be integrated for the success of optimization models.
+
+## (b) **Exploring Statistical Summaries of ‘mtcars’ dataset**
+
 ```{r}
-1 + 1
+
+data(mtcars)
+print(colnames(mtcars))
+
+compute_stats <- function(b) {
+  list(
+    mean = mean(b, na.rm = TRUE),
+    median = median(b, na.rm = TRUE),
+    variance = var(b, na.rm = TRUE),
+    IQR = IQR(b, na.rm = TRUE),
+    min = min(b, na.rm = TRUE),
+    max = max(b, na.rm = TRUE)
+  )
+}
+
+
+for (col in names(mtcars)) {
+  if (is.numeric(mtcars[[col]])) {  
+    cat("\nStatistics for:", col, "\n")
+    print(compute_stats(mtcars[[col]]))
+  }
+}
 ```
 
-My first assignment has two parts.
-
-## (a)
-
-## (b)
+## (c) Displaying and Manipulating the ‘na_example’ Dataset
