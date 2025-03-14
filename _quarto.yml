@@ -44,8 +44,8 @@ format:
     toc: true
     toc-location: left
     theme: 
-       light: flatly  # Açık mod teması
-      dark: darkly   # Koyu mod teması
+       light: flatly  
+      dark: darkly  
     css: styles.css
 
 

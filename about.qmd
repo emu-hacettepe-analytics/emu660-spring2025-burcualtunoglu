@@ -38,7 +38,7 @@ sidebar: false
 
 R, Quarto, Git, Python, Arena
 
-# **Resume**
+# Resume
 
 [Burcu Altunoglu-CV](docs/Burcu Altunoglu_CV.pdf)
 
