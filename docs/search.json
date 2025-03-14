@@ -4,68 +4,68 @@
     "href": "index.html",
     "title": "Welcome to My Analytics Lab",
     "section": "",
-    "text": "Hello!! My name is Burcu ALTUNOĞLU.\nThis is my personal webpage.\nPlease stay tuned to follow my works on data analytics, blog posts, and more.\n\n\n\n Back to top"
+    "text": "Hello!! My name is Burcu ALTUNOĞLU.\nThis is my personal webpage.\nKeep an eye on this space for updates on my data analytics projects and blog posts.\n\n\n\n Back to top"
   },
   {
     "objectID": "project.html",
     "href": "project.html",
-    "title": "Project X",
+    "title": "Project",
     "section": "",
-    "text": "Welcome to my/our project page.\nKeep an eye on this space to stay updated with my project activities."
+    "text": "Welcome to my/our project page."
   },
   {
     "objectID": "project.html#data-source",
     "href": "project.html#data-source",
-    "title": "Project X",
+    "title": "Project",
     "section": "2.1 Data Source",
     "text": "2.1 Data Source\nxxxxxx"
   },
   {
     "objectID": "project.html#general-information-about-data",
     "href": "project.html#general-information-about-data",
-    "title": "Project X",
+    "title": "Project",
     "section": "2.2 General Information About Data",
     "text": "2.2 General Information About Data\nxxxxxx"
   },
   {
     "objectID": "project.html#reason-of-choice",
     "href": "project.html#reason-of-choice",
-    "title": "Project X",
+    "title": "Project",
     "section": "2.3 Reason of Choice",
     "text": "2.3 Reason of Choice\nxxxxxx"
   },
   {
     "objectID": "project.html#preprocessing",
     "href": "project.html#preprocessing",
-    "title": "Project X",
+    "title": "Project",
     "section": "2.4 Preprocessing",
     "text": "2.4 Preprocessing\nxxxxxx"
   },
   {
     "objectID": "project.html#exploratory-data-analysis",
     "href": "project.html#exploratory-data-analysis",
-    "title": "Project X",
+    "title": "Project",
     "section": "3.1 Exploratory Data Analysis",
     "text": "3.1 Exploratory Data Analysis\nxxxxxx"
   },
   {
     "objectID": "project.html#trend-analysis",
     "href": "project.html#trend-analysis",
-    "title": "Project X",
+    "title": "Project",
     "section": "3.2 Trend Analysis",
     "text": "3.2 Trend Analysis\nxxxxxx"
   },
   {
     "objectID": "project.html#model-fitting",
     "href": "project.html#model-fitting",
-    "title": "Project X",
+    "title": "Project",
     "section": "3.3 Model Fitting",
     "text": "3.3 Model Fitting\nxxxxxx"
   },
   {
     "objectID": "project.html#results",
     "href": "project.html#results",
-    "title": "Project X",
+    "title": "Project",
     "section": "3.4 Results",
     "text": "3.4 Results\nxxxxxx"
   },
@@ -74,7 +74,7 @@
     "href": "assignments.html",
     "title": "My Assignments",
     "section": "",
-    "text": "On this page, I showcase the assignment I conducted for the [term and year, e.g. Spring 2024] EMU660 Decision Making with Analytics course.\nPlease use left menu to navigate through my assignments.\n\n\n\n Back to top",
+    "text": "On this page, I showcase the assignment I conducted for the2024-2025 EMU660 Decision Making with Analytics course.\nPlease use left menu to navigate through my assignments.\n\n\n\n Back to top",
     "crumbs": [
       "My Assignments"
     ]
@@ -98,7 +98,7 @@
     "href": "posts.html",
     "title": "My Blog",
     "section": "",
-    "text": "This page is under construction.\n\n\n\n Back to top"
+    "text": "This page is under construction…\n\n\n\n Back to top"
   },
   {
     "objectID": "docs/assignments/assignment-1.html",

@@ -1,10 +1,8 @@
 ---
-title: "Project X"
+title: "Project"
 ---
 
 Welcome to my/our project page.
-
-Keep an eye on this space to stay updated with my project activities.
 
 # 1. Project Overview and Scope
 
