@@ -44,9 +44,74 @@ print("Applying compute_stats Using sapply()")
 print(statistics_sapply)
 
 statistics_apply <- apply(mtcars, MARGIN = 2, compute_stats)
-print("Applying compute_stats Using apply()" <- statistics_apply )
-
+print("Applying compute_stats Using apply()")
+print(statistics_apply)
 
 ```
 
 ## (c) Displaying and Manipulating the ‘na_example’ Dataset
+
+```{r}
+library(dslabs)
+data("na_example")
+print(na_example)
+
+
+na_count <- sum(is.na(na_example))
+print(na_count) #Total NA values
+
+
+
+na_indic <- which(is.na(na_example))
+print(na_indic) #Indices of NA values
+
+
+
+before_mean <- mean(na_example, na.rm = TRUE) #mean ignoring NA values
+print(before_mean) #Mean before handling NA values
+
+before_sd <- sd(na_example, na.rm = TRUE)  #standard deviation ignoring NA values
+print(before_sd) #Standard Deviation before handling NA values
+
+
+
+
+median_value <- median(na_example, na.rm = TRUE) # Compute the median of non-missing values
+
+
+na_replaced_median <- na_example
+na_replaced_median[is.na(na_replaced_median)] <- median_value # Replace NA values with the median
+
+
+non_na_values <- na_example[!is.na(na_example)]
+random_values <- sample(non_na_values, size = sum(is.na(na_example)), replace = TRUE) # Select a random non-missing value
+
+
+na_replaced_random <- na_example
+na_replaced_random[is.na(na_replaced_random)] <- random_values # Replace NA values with random values
+
+
+# Version 1 (NA replaced with median)
+mean_median <- mean(na_replaced_median)  #mean- NA replaced with median
+print(mean_median)   #Mean after replacing NA with median
+sd_median <- sd(na_replaced_median)  #standard deviation- NA replaced with median
+print(sd_median)  # Standard Deviation after replacing NA with median
+
+# Version 2 (NA replaced with random values)
+mean_random <- mean(na_replaced_random)
+print(mean_random) #Mean after replacing NA with random values
+sd_random <- sd(na_replaced_random)
+print(sd_random) #Standard Deviation after replacing NA with random values
+```
+
+**Comparison of Results**
+
+|                                  | Mean  | Standard Deviation |
+|----------------------------------|-------|--------------------|
+| Before Handling NAs              | 2.302 | 1.223              |
+| Replacing NAs with Median        | 2.258 | 1.136              |
+| Replacing NAs with Random Values | 2.304 | 1.223              |
+
+For this dataset, the method of filling missing data with randomly available values seems more appropriate. This is because this method preserves the mean and standard deviation values of the data set, thus minimizing the distortion of the original data structure. The method of filling with the median, on the other hand, reduced the variance of the data set, thus changing the data distribution and causing possible loss of information.
+
+Translated with www.DeepL.com/Translator (free version)
