@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "[Student xxxx]'s Analytics Lab"
+  title: "Burcu A.'s Analytics Lab"
   navbar:
     search: true
     left:
@@ -22,11 +22,9 @@ website:
             
     tools:
       - icon: github
-        href: https://twitter.com
-      - icon: twitter
-        href: https://twitter.com
+        href: https://emu-hacettepe-analytics.github.io/emu660-spring2025-burcualtunoglu/
       - icon: linkedin
-        href: https://linkedin.com
+        href: https://www.linkedin.com/in/burcu-altunoğlu-355613173/
 
   sidebar:
     - title: "Assignments"
