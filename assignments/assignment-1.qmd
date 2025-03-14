@@ -10,7 +10,7 @@ Data analytics and operations research are related to industrial engineering in 
 
 Although startup ventures in optimization and data science are on the rise in Turkey, investments are limited compared to developed countries. Mathematical modeling and software development skills are critical for those who want to pursue a career in this field. Gaining competence in Python and optimization techniques, deepening analytical skills with a master's or PhD education for those who want to advance in the academic world, and gaining applied technical competencies for those who want to get an early start in professional life will provide a competitive advantage. In conclusion, Hafızoğlu's talk sheds light on the critical relationships between industrial engineering and data science and emphasizes that technical knowledge, application processes and user experience must be integrated for the success of optimization models.
 
-## (b) **Exploring Statistical Summaries of ‘mtcars’ dataset**
+## (b) Exploring Statistical Summaries of ‘mtcars’ dataset
 
 ```{r}
 
