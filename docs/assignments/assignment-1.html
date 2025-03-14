@@ -860,12 +860,12 @@ $carb$max
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>mean_random <span class="ot">&lt;-</span> <span class="fu">mean</span>(na_replaced_random)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mean_random) <span class="co">#Mean after replacing NA with random values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.296</code></pre>
+<pre><code>[1] 2.319</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sd_random <span class="ot">&lt;-</span> <span class="fu">sd</span>(na_replaced_random)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sd_random) <span class="co">#Standard Deviation after replacing NA with random values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.213201</code></pre>
+<pre><code>[1] 1.219314</code></pre>
 </div>
 </div>
 <p><strong>Comparison of Results</strong></p>
@@ -896,7 +896,6 @@ $carb$max
 </tbody>
 </table>
 <p>For this dataset, the method of filling missing data with randomly available values seems more appropriate. This is because this method preserves the mean and standard deviation values of the data set, thus minimizing the distortion of the original data structure. The method of filling with the median, on the other hand, reduced the variance of the data set, thus changing the data distribution and causing possible loss of information.</p>
-<p>Translated with www.DeepL.com/Translator (free version)</p>
 
 
 </section>

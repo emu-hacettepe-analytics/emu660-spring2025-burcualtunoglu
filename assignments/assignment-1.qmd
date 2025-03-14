@@ -113,5 +113,3 @@ print(sd_random) #Standard Deviation after replacing NA with random values
 | Replacing NAs with Random Values | 2.304 | 1.223              |
 
 For this dataset, the method of filling missing data with randomly available values seems more appropriate. This is because this method preserves the mean and standard deviation values of the data set, thus minimizing the distortion of the original data structure. The method of filling with the median, on the other hand, reduced the variance of the data set, thus changing the data distribution and causing possible loss of information.
-
-Translated with www.DeepL.com/Translator (free version)
