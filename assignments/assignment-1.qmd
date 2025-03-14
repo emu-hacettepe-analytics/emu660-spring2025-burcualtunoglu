@@ -35,6 +35,27 @@ for (col in names(mtcars)) {
     print(compute_stats(mtcars[[col]]))
   }
 }
+
+statistics_sapply <- sapply(mtcars, compute_stats)
+
+# Print results
+print(statistics_sapply)
+```
+
+Applying compute_stats using sapply()
+
+```{r}
+statistics_sapply <- sapply(mtcars, compute_stats)
+
+print(statistics_sapply)
+```
+
+Applying compute_stats using apply()
+
+```{r}
+statistics_apply <- apply(mtcars, MARGIN = 2, compute_stats)
+
+print(statistics_apply)
 ```
 
 ## (c) Displaying and Manipulating the ‘na_example’ Dataset
