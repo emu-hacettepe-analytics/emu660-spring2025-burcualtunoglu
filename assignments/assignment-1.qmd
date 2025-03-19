@@ -4,7 +4,7 @@ title: "Assignment 1"
 
 # Assignment 1
 
-## (a) fgajdgfwkfuhSummary of "Veri Bilimi ve Endüstri Mühendisliği Üzerine Sohbetler - Baykal Hafızoğlu & Erdi Daşdemir"
+## (a) Summary of "Veri Bilimi ve Endüstri Mühendisliği Üzerine Sohbetler - Baykal Hafızoğlu & Erdi Daşdemir"
 
 Data analytics and operations research are related to industrial engineering in four main categories: descriptive, diagnostic, predictive and prescriptive analytics. While artificial intelligence and machine learning have made great advances in the field of predictive analytics in recent years, optimization problems are still dependent on the human factor. Hafızoğlu's career spans a wide range of areas such as supply chain optimization, dynamic pricing and credit scoring systems, emphasizing the need for accurate problem definition, efficient model deployment and user-friendly interfaces for academic models to be effective in the business world. In particular, early prototyping and a continuous feedback loop are recommended to increase the adoption of optimization models.
 
