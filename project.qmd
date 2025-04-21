@@ -1,36 +1,216 @@
 ---
-title: "Project"
+title: "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye"
 ---
 
-Welcome to my/our project page.
+**Project Team Members:**
+
+***Burcu ALTUNOĞLU - Mustafa Erdem BAKIR***
+
+Welcome to our project page.
 
 # 1. Project Overview and Scope
 
-xxxxxx
+### ***Problem Definition***
+
+The growth of entrepreneurial activities in the industrial sector is a dynamic factor that influences not only economic development but also scientific productivity and technological capacity. Evaluating how changes in the number of industrial enterprises affect the composition and size of the R&D workforce is of strategic importance for understanding the development of innovation capacity.
+
+In this context, the primary research question of the project is defined as follows:
+
+What is the impact of changes in the number of industrial enterprises in Turkiye on the educational level and gender distribution of R&D personnel between 2009 and 2022?
+
+In addressing this question, the analysis will not only consider the total number of R&D personnel, but also account for variations in their educational attainment and gender composition.
+
+***Research Objectives***
+
+The primary objectives of this study are as follows:
+
+-   To conduct a comparative analysis of the evolution of the number of industrial enterprises in Turkiye with the educational and gender composition of the R&D workforce over time,
+
+-   To identify statistically significant and structural relationships among these variables,
+
+-   To estimate the effects of entrepreneurial activities on the composition of the R&D workforce through a multiple linear regression model,
+
+-   To develop policy recommendations for Turkiye’s science and technology agenda and industrial strategies based on the findings.
+
+### ***General Analysis Plan***
+
+The analytical workflow of the project is structured as follows:
+
+1.  Importing the datasets into the R environment, performing data cleaning, and aligning them to a common time frame (2009–2022),
+
+2.  Disaggregating the number of R&D personnel by educational level and gender,
+
+3.  Analyzing trends through time-series visualizations,
+
+4.  Evaluating the relationships between the number of industrial enterprises and specific R&D workforce subcategories (e.g., number of female PhD holders) using Pearson correlation analysis,
+
+5.  Testing the causal effects of changes in the number of enterprises on the composition of the R&D workforce through a multiple linear regression model,
+
+6.  Interpreting the findings in the context of industrial, educational, and gender policy, and providing concrete recommendations for policymakers.
+
+This analysis plan will not only reveal quantitative relationships but also uncover politically significant demographic and institutional dimensions. The study aims to provide a multidimensional evaluation of the relationship between Turkiye’s industrial development and the accumulation of scientific capital.
 
 # 2. Data
 
-xxxxxx
+The datasets used in this study consist of comprehensive, large-scale statistical data published annually by the TÜİK, the official statistical agency of Turkiye. Both datasets provide sufficient numerical scope for analysis and allow for meaningful comparisons across both temporal and spatial dimensions.
 
 ## 2.1 Data Source
 
-xxxxxx
+TÜİK Official Data Portal: https://data.tuik.gov.tr/
+
+The raw data analyzed in this project were obtained from files downloaded from the TURKSTAT data portal, provided in .xlsx format. The relevant files will be included as source materials on the project's GitHub page.
 
 ## 2.2 General Information About Data
 
-xxxxxx
+### *Industrial Total Enterprise Count Data*
+
+This dataset contains annual figures on the total number of industrial enterprises operating at both national and provincial levels across Turkiye. Available since 2009, it provides a quantitative foundation for monitoring the dynamics of entrepreneurship in the industrial sector.
+
+### *R&D Activities Data of Industrial and Service Enterprises*
+
+The R&D dataset comprises annual statistics on research and development (R&D) activities conducted by industrial and service enterprises in Turkiye. Regularly published since 2003, the dataset reports the total number of R&D personnel nationwide and classifies this workforce by educational attainment (e.g., doctorate, master’s, bachelor’s degrees) and employment status. As such, it offers rich content in terms of both quantitative magnitude and qualitative detail.
+
+When considered together, these two datasets enable a relational analysis of entrepreneurial capacity and scientific human capital in Turkiye. Their time-series structure also makes them suitable for modeling and forecasting applications. In particular, the national-level coverage of R&D personnel data, combined with the availability of industrial enterprise counts at both the national and provincial levels, ensures a high degree of representativeness for national-level analysis.
 
 ## 2.3 Reason of Choice
 
-xxxxxx
+Both datasets have been obtained from up-to-date, publicly available, and reliable sources provided by the TÜİK. The fact that these datasets are published within the context of Turkiye allows this study to contribute as a decision-support tool for policy-making at the national level. Moreover, their time-series structure enables multidimensional statistical analyses.
+
+In this regard, the selected datasets are well-suited for generating analytical insights within the scope of industrial engineering, particularly in the areas of decision support systems, resource allocation optimization, technology management, and sustainable development.
 
 ## 2.4 Preprocessing
 
-xxxxxx
+The two main datasets used in this project were obtained from the official portal of the TÜİK in .xlsx format. These datasets are published annually at the national level and cover the number of industrial enterprises as well as the qualitative and demographic characteristics of R&D personnel. Although the data are structured, several preprocessing steps are required to make them ready for analysis.
+
+The data import and preprocessing workflow will follow these systematic steps:
+
+### ***Data Import***
+
+The data files will be imported into the R environment using packages such as readxl, dplyr, and tidyr. During this process, the original data structure will be preserved while transforming the datasets into a format that is both reorganizable and suitable for analysis.
+
+### ***Variable Selection and Disaggregation***
+
+#### **Industrial Enterprise Data:**
+
+This dataset presents the annual number of industrial enterprises across Turkiye’s 81 provinces. For the purposes of this project, only the total number of industrial enterprises at the national level will be used. This choice ensures analytical consistency, as the R&D dataset is also provided at the national level.
+
+#### **R&D Personnel Data (by Educational Level):**
+
+The number of R&D personnel is disaggregated by educational attainment (e.g., Doctorate or higher, Master’s, Bachelor’s, Associate degree, and Other). In this study, the trends for each educational category will be analyzed independently over time, and their relationship with the number of industrial enterprises will be examined.
+
+#### **R&D Personnel Data (by Gender):**
+
+The dataset also includes total counts of male and female R&D personnel. This demographic distinction enables gender-based analysis of employment in the scientific workforce. Accordingly, the relationship between industrial entrepreneurial capacity and gender-based scientific employment will be evaluated.
+
+### ***Temporal Alignment and Data Merging***
+
+Although both datasets are published on an annual basis, they may differ in terms of the specific years they cover. Therefore, only the overlapping period from 2009 to 2022 will be included in the analysis. All variables—namely the number of industrial enterprises, R&D personnel by educational level, and R&D personnel by gender—will be merged based on a common year variable to construct a unified multivariate data frame.
+
+### ***Handling of Missing Observations***
+
+Observations with missing values will be marked as NA during the analysis process. Depending on the analytical technique applied, these cases will either be excluded or analyzed separately using the available (non-missing) portions of the data. In the presence of missing values, the reliability of the model outcomes will be assessed with particular attention.
+
+### **Persistent Data Storage**
+
+After the data preprocessing procedures are completed, the resulting unified data frame will be saved in .RData format and made accessible via the project’s GitHub repository. This practice ensures the reproducibility of the analytical process and aligns with the principles of open science.
+
+```{r}
+# Paketlerin yüklenmesi
+library(readxl)
+library(dplyr)
+library(tidyr)
+# Girişim verisinin okunması
+girisim_data <- read_excel(file.choose(), sheet = "report2", skip = 0)
+View(girisim_data)
+# Ar-Ge verisinin okunması
+arge_data <- read_excel(file.choose(), sheet = "Sheet0", skip = 0)
+View(arge_data)
+# Eğitim düzeyine göre personel verisinin ayrıştırılması
+library(stringr)
+ arge_egitim <- arge_data %>%
+  mutate(Education_Level = str_extract(`Education level Occupation Gender`, "(?<=Education  Level: ).+?(?=;)")) %>%
+  select(Education_Level, Year, Number) %>%
+  mutate(
+    Year = as.integer(Year),
+    Number = as.numeric(Number)  ) %>%
+  filter(!is.na(Education_Level), !is.na(Year), Year >= 2009, Year <= 2022)
+# Eğitim düzeyine göre personel verisini tablosunun genişletilmesi
+arge_egtim_wide <- arge_egitim %>%
+  pivot_wider(
+      names_from = Education_Level,
+      values_from = Number,
+     values_fn = list(Number = sum),
+     values_fill = 0  )
+# Cinsiyete göre personel verisinin ayrıştırılması
+arge_gender <- arge_data %>%
+  mutate(Gender = str_extract(`Education level Occupation Gender`, "(?<=Gender: ).*")) %>%
+  select(Gender, Year, Number) %>%
+  mutate(
+    Year = as.integer(Year),
+    Number = as.numeric(Number),
+    Gender = str_trim(Gender) ) %>%
+    filter(!is.na(Gender), !is.na(Year), Year >= 2009, Year <= 2022)
+# Cinsiyete göre personel verisini tablosunun genişletilmesi
+ library(tidyr)
+  library(dplyr)
+  arge_cinsiyet_wide <- arge_gender %>%
+ pivot_wider(
+    names_from = Gender,
+    values_from = Number,
+    values_fn = list(Number = sum),
+    values_fill = 0  )
+ # Tüm verilerin birleştirilmesi
+girisim_data$Year <- as.integer(girisim_data$Year)
+arge_egtim_wide$Year <- as.integer(arge_egtim_wide$Year)
+arge_cinsiyet_wide$Year <- as.integer(arge_cinsiyet_wide$Year)
+veri_birlesik <- girisim_data %>%
+  left_join(arge_egtim_wide, by = "Year") %>%
+  left_join(arge_cinsiyet_wide, by = "Year")
+# Kaydet
+save(veri_birlesik, file = "veri_birlesik_egitim_cinsiyet.RData")
+
+```
+
+With this structure, the project will enable a detailed statistical investigation of the following relationships during the analysis phase:
+
+-   The relationship between the number of industrial enterprises and the educational level of the R&D workforce,
+
+-   The relationship between the number of industrial enterprises and the gender distribution (female/male ratio) of R&D personnel.
 
 # 3. Analysis
 
-xxxxxx
+\
+The two datasets used in this project consist of quantitative variables that are well-suited for time-series analysis in terms of both content and structure. The key features of these datasets are summarized below:
+
+***Industrial Enterprise Data***
+
+This dataset contains the annual total number of industrial enterprises operating across Turkey. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.
+
+***R&D Data***
+
+This dataset includes the annual number of R&D personnel employed by industrial and service sector enterprises across Turkey. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&D personnel data directly reflect scientific capacity, the variable holds strategic importance.
+
+Both variables are quantitative and structured in a yearly time-series format. This structure allows for the application of both visual and model-based analytical techniques.
+
+***Potential Analytical Approaches***
+
+The types of analyses planned to be implemented in the project can be grouped under the following categories:
+
+***Time-Series Visualizations***
+
+Using advanced visualization libraries such as ggplot2, the temporal changes in the number of industrial enterprises and R&D personnel will be presented through line graphs. These visualizations will facilitate intuitive interpretation of trends over time.
+
+***Correlation Analysis (Pearson Coefficient)***
+
+The strength of the linear relationship between the number of industrial enterprises and the number of R&D personnel will be measured using the Pearson correlation coefficient. This analysis will indicate both the direction and the magnitude of the linear association between the two variables.
+
+***Linear Regression Analysis***
+
+A simple linear regression model will be constructed using the lm() function, where the number of enterprises will serve as the independent variable and the R&D workforce as the dependent variable. This will allow for testing potential cause-and-effect relationships.
+
+***Causal Relationship Assessment***
+
+The results of the regression analysis will be used to evaluate the impact of industrial entrepreneurship on R&D capacity. This, in turn, will enable inferences regarding the level of integration between industrial policies and science and technology strategies.
 
 ## 3.1 Exploratory Data Analysis
 

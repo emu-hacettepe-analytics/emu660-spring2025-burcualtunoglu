@@ -9,63 +9,63 @@
   {
     "objectID": "project.html",
     "href": "project.html",
-    "title": "Project",
+    "title": "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye",
     "section": "",
-    "text": "Welcome to my/our project page."
+    "text": "Project Team Members:\nBurcu ALTUNOĞLU - Mustafa Erdem BAKIR\nWelcome to our project page."
   },
   {
     "objectID": "project.html#data-source",
     "href": "project.html#data-source",
-    "title": "Project",
+    "title": "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye",
     "section": "2.1 Data Source",
-    "text": "2.1 Data Source\nxxxxxx"
+    "text": "2.1 Data Source\nTÜİK Official Data Portal: https://data.tuik.gov.tr/\nThe raw data analyzed in this project were obtained from files downloaded from the TURKSTAT data portal, provided in .xlsx format. The relevant files will be included as source materials on the project’s GitHub page."
   },
   {
     "objectID": "project.html#general-information-about-data",
     "href": "project.html#general-information-about-data",
-    "title": "Project",
+    "title": "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye",
     "section": "2.2 General Information About Data",
-    "text": "2.2 General Information About Data\nxxxxxx"
+    "text": "2.2 General Information About Data\n\nIndustrial Total Enterprise Count Data\nThis dataset contains annual figures on the total number of industrial enterprises operating at both national and provincial levels across Turkiye. Available since 2009, it provides a quantitative foundation for monitoring the dynamics of entrepreneurship in the industrial sector.\n\n\nR&D Activities Data of Industrial and Service Enterprises\nThe R&D dataset comprises annual statistics on research and development (R&D) activities conducted by industrial and service enterprises in Turkiye. Regularly published since 2003, the dataset reports the total number of R&D personnel nationwide and classifies this workforce by educational attainment (e.g., doctorate, master’s, bachelor’s degrees) and employment status. As such, it offers rich content in terms of both quantitative magnitude and qualitative detail.\nWhen considered together, these two datasets enable a relational analysis of entrepreneurial capacity and scientific human capital in Turkiye. Their time-series structure also makes them suitable for modeling and forecasting applications. In particular, the national-level coverage of R&D personnel data, combined with the availability of industrial enterprise counts at both the national and provincial levels, ensures a high degree of representativeness for national-level analysis."
   },
   {
     "objectID": "project.html#reason-of-choice",
     "href": "project.html#reason-of-choice",
-    "title": "Project",
+    "title": "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye",
     "section": "2.3 Reason of Choice",
-    "text": "2.3 Reason of Choice\nxxxxxx"
+    "text": "2.3 Reason of Choice\nBoth datasets have been obtained from up-to-date, publicly available, and reliable sources provided by the TÜİK. The fact that these datasets are published within the context of Turkiye allows this study to contribute as a decision-support tool for policy-making at the national level. Moreover, their time-series structure enables multidimensional statistical analyses.\nIn this regard, the selected datasets are well-suited for generating analytical insights within the scope of industrial engineering, particularly in the areas of decision support systems, resource allocation optimization, technology management, and sustainable development."
   },
   {
     "objectID": "project.html#preprocessing",
     "href": "project.html#preprocessing",
-    "title": "Project",
+    "title": "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye",
     "section": "2.4 Preprocessing",
-    "text": "2.4 Preprocessing\nxxxxxx"
+    "text": "2.4 Preprocessing\nThe two main datasets used in this project were obtained from the official portal of the TÜİK in .xlsx format. These datasets are published annually at the national level and cover the number of industrial enterprises as well as the qualitative and demographic characteristics of R&D personnel. Although the data are structured, several preprocessing steps are required to make them ready for analysis.\nThe data import and preprocessing workflow will follow these systematic steps:\n\nData Import\nThe data files will be imported into the R environment using packages such as readxl, dplyr, and tidyr. During this process, the original data structure will be preserved while transforming the datasets into a format that is both reorganizable and suitable for analysis.\n\n\nVariable Selection and Disaggregation\n\nIndustrial Enterprise Data:\nThis dataset presents the annual number of industrial enterprises across Turkiye’s 81 provinces. For the purposes of this project, only the total number of industrial enterprises at the national level will be used. This choice ensures analytical consistency, as the R&D dataset is also provided at the national level.\n\n\nR&D Personnel Data (by Educational Level):\nThe number of R&D personnel is disaggregated by educational attainment (e.g., Doctorate or higher, Master’s, Bachelor’s, Associate degree, and Other). In this study, the trends for each educational category will be analyzed independently over time, and their relationship with the number of industrial enterprises will be examined.\n\n\nR&D Personnel Data (by Gender):\nThe dataset also includes total counts of male and female R&D personnel. This demographic distinction enables gender-based analysis of employment in the scientific workforce. Accordingly, the relationship between industrial entrepreneurial capacity and gender-based scientific employment will be evaluated.\n\n\n\nTemporal Alignment and Data Merging\nAlthough both datasets are published on an annual basis, they may differ in terms of the specific years they cover. Therefore, only the overlapping period from 2009 to 2022 will be included in the analysis. All variables—namely the number of industrial enterprises, R&D personnel by educational level, and R&D personnel by gender—will be merged based on a common year variable to construct a unified multivariate data frame.\n\n\nHandling of Missing Observations\nObservations with missing values will be marked as NA during the analysis process. Depending on the analytical technique applied, these cases will either be excluded or analyzed separately using the available (non-missing) portions of the data. In the presence of missing values, the reliability of the model outcomes will be assessed with particular attention.\n\n\nPersistent Data Storage\nAfter the data preprocessing procedures are completed, the resulting unified data frame will be saved in .RData format and made accessible via the project’s GitHub repository. This practice ensures the reproducibility of the analytical process and aligns with the principles of open science.\n\n# Paketlerin yüklenmesi\nlibrary(readxl)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(tidyr)\n# Girişim verisinin okunması\ngirisim_data &lt;- read_excel(file.choose(), sheet = \"report2\", skip = 0)\nView(girisim_data)\n# Ar-Ge verisinin okunması\narge_data &lt;- read_excel(file.choose(), sheet = \"Sheet0\", skip = 0)\nView(arge_data)\n# Eğitim düzeyine göre personel verisinin ayrıştırılması\nlibrary(stringr)\n arge_egitim &lt;- arge_data %&gt;%\n  mutate(Education_Level = str_extract(`Education level Occupation Gender`, \"(?&lt;=Education  Level: ).+?(?=;)\")) %&gt;%\n  select(Education_Level, Year, Number) %&gt;%\n  mutate(\n    Year = as.integer(Year),\n    Number = as.numeric(Number)  ) %&gt;%\n  filter(!is.na(Education_Level), !is.na(Year), Year &gt;= 2009, Year &lt;= 2022)\n# Eğitim düzeyine göre personel verisini tablosunun genişletilmesi\narge_egtim_wide &lt;- arge_egitim %&gt;%\n  pivot_wider(\n      names_from = Education_Level,\n      values_from = Number,\n     values_fn = list(Number = sum),\n     values_fill = 0  )\n# Cinsiyete göre personel verisinin ayrıştırılması\narge_gender &lt;- arge_data %&gt;%\n  mutate(Gender = str_extract(`Education level Occupation Gender`, \"(?&lt;=Gender: ).*\")) %&gt;%\n  select(Gender, Year, Number) %&gt;%\n  mutate(\n    Year = as.integer(Year),\n    Number = as.numeric(Number),\n    Gender = str_trim(Gender) ) %&gt;%\n    filter(!is.na(Gender), !is.na(Year), Year &gt;= 2009, Year &lt;= 2022)\n# Cinsiyete göre personel verisini tablosunun genişletilmesi\n library(tidyr)\n  library(dplyr)\n  arge_cinsiyet_wide &lt;- arge_gender %&gt;%\n pivot_wider(\n    names_from = Gender,\n    values_from = Number,\n    values_fn = list(Number = sum),\n    values_fill = 0  )\n # Tüm verilerin birleştirilmesi\ngirisim_data$Year &lt;- as.integer(girisim_data$Year)\narge_egtim_wide$Year &lt;- as.integer(arge_egtim_wide$Year)\narge_cinsiyet_wide$Year &lt;- as.integer(arge_cinsiyet_wide$Year)\nveri_birlesik &lt;- girisim_data %&gt;%\n  left_join(arge_egtim_wide, by = \"Year\") %&gt;%\n  left_join(arge_cinsiyet_wide, by = \"Year\")\n# Kaydet\nsave(veri_birlesik, file = \"veri_birlesik_egitim_cinsiyet.RData\")\n\nWith this structure, the project will enable a detailed statistical investigation of the following relationships during the analysis phase:\n\nThe relationship between the number of industrial enterprises and the educational level of the R&D workforce,\nThe relationship between the number of industrial enterprises and the gender distribution (female/male ratio) of R&D personnel."
   },
   {
     "objectID": "project.html#exploratory-data-analysis",
     "href": "project.html#exploratory-data-analysis",
-    "title": "Project",
+    "title": "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye",
     "section": "3.1 Exploratory Data Analysis",
     "text": "3.1 Exploratory Data Analysis\nxxxxxx"
   },
   {
     "objectID": "project.html#trend-analysis",
     "href": "project.html#trend-analysis",
-    "title": "Project",
+    "title": "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye",
     "section": "3.2 Trend Analysis",
     "text": "3.2 Trend Analysis\nxxxxxx"
   },
   {
     "objectID": "project.html#model-fitting",
     "href": "project.html#model-fitting",
-    "title": "Project",
+    "title": "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye",
     "section": "3.3 Model Fitting",
     "text": "3.3 Model Fitting\nxxxxxx"
   },
   {
     "objectID": "project.html#results",
     "href": "project.html#results",
-    "title": "Project",
+    "title": "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye",
     "section": "3.4 Results",
     "text": "3.4 Results\nxxxxxx"
   },

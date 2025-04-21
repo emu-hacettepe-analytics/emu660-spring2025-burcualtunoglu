@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Project – Burcu A.’s Analytics Lab</title>
+<title>An Evolutionary Analysis of Industrial Entrepreneurship and R&amp;D Resources in Turkiye – Burcu A.’s Analytics Lab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -135,13 +169,28 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#project-overview-and-scope" id="toc-project-overview-and-scope" class="nav-link active" data-scroll-target="#project-overview-and-scope">1. Project Overview and Scope</a></li>
+  <li><a href="#project-overview-and-scope" id="toc-project-overview-and-scope" class="nav-link active" data-scroll-target="#project-overview-and-scope">1. Project Overview and Scope</a>
+  <ul class="collapse">
+  <li><a href="#problem-definition" id="toc-problem-definition" class="nav-link" data-scroll-target="#problem-definition"><strong><em>Problem Definition</em></strong></a></li>
+  <li><a href="#general-analysis-plan" id="toc-general-analysis-plan" class="nav-link" data-scroll-target="#general-analysis-plan"><strong><em>General Analysis Plan</em></strong></a></li>
+  </ul></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2. Data</a>
   <ul class="collapse">
   <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">2.1 Data Source</a></li>
-  <li><a href="#general-information-about-data" id="toc-general-information-about-data" class="nav-link" data-scroll-target="#general-information-about-data">2.2 General Information About Data</a></li>
+  <li><a href="#general-information-about-data" id="toc-general-information-about-data" class="nav-link" data-scroll-target="#general-information-about-data">2.2 General Information About Data</a>
+  <ul class="collapse">
+  <li><a href="#industrial-total-enterprise-count-data" id="toc-industrial-total-enterprise-count-data" class="nav-link" data-scroll-target="#industrial-total-enterprise-count-data"><em>Industrial Total Enterprise Count Data</em></a></li>
+  <li><a href="#rd-activities-data-of-industrial-and-service-enterprises" id="toc-rd-activities-data-of-industrial-and-service-enterprises" class="nav-link" data-scroll-target="#rd-activities-data-of-industrial-and-service-enterprises"><em>R&amp;D Activities Data of Industrial and Service Enterprises</em></a></li>
+  </ul></li>
   <li><a href="#reason-of-choice" id="toc-reason-of-choice" class="nav-link" data-scroll-target="#reason-of-choice">2.3 Reason of Choice</a></li>
-  <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">2.4 Preprocessing</a></li>
+  <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">2.4 Preprocessing</a>
+  <ul class="collapse">
+  <li><a href="#data-import" id="toc-data-import" class="nav-link" data-scroll-target="#data-import"><strong><em>Data Import</em></strong></a></li>
+  <li><a href="#variable-selection-and-disaggregation" id="toc-variable-selection-and-disaggregation" class="nav-link" data-scroll-target="#variable-selection-and-disaggregation"><strong><em>Variable Selection and Disaggregation</em></strong></a></li>
+  <li><a href="#temporal-alignment-and-data-merging" id="toc-temporal-alignment-and-data-merging" class="nav-link" data-scroll-target="#temporal-alignment-and-data-merging"><strong><em>Temporal Alignment and Data Merging</em></strong></a></li>
+  <li><a href="#handling-of-missing-observations" id="toc-handling-of-missing-observations" class="nav-link" data-scroll-target="#handling-of-missing-observations"><strong><em>Handling of Missing Observations</em></strong></a></li>
+  <li><a href="#persistent-data-storage" id="toc-persistent-data-storage" class="nav-link" data-scroll-target="#persistent-data-storage"><strong>Persistent Data Storage</strong></a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">3. Analysis</a>
   <ul class="collapse">
@@ -163,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project</h1>
+<h1 class="title">An Evolutionary Analysis of Industrial Entrepreneurship and R&amp;D Resources in Turkiye</h1>
 </div>
 
 
@@ -180,34 +229,195 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Welcome to my/our project page.</p>
+<p><strong>Project Team Members:</strong></p>
+<p><strong><em>Burcu ALTUNOĞLU - Mustafa Erdem BAKIR</em></strong></p>
+<p>Welcome to our project page.</p>
 <section id="project-overview-and-scope" class="level1">
 <h1>1. Project Overview and Scope</h1>
-<p>xxxxxx</p>
+<section id="problem-definition" class="level3">
+<h3 class="anchored" data-anchor-id="problem-definition"><strong><em>Problem Definition</em></strong></h3>
+<p>The growth of entrepreneurial activities in the industrial sector is a dynamic factor that influences not only economic development but also scientific productivity and technological capacity. Evaluating how changes in the number of industrial enterprises affect the composition and size of the R&amp;D workforce is of strategic importance for understanding the development of innovation capacity.</p>
+<p>In this context, the primary research question of the project is defined as follows:</p>
+<p>What is the impact of changes in the number of industrial enterprises in Turkiye on the educational level and gender distribution of R&amp;D personnel between 2009 and 2022?</p>
+<p>In addressing this question, the analysis will not only consider the total number of R&amp;D personnel, but also account for variations in their educational attainment and gender composition.</p>
+<p><strong><em>Research Objectives</em></strong></p>
+<p>The primary objectives of this study are as follows:</p>
+<ul>
+<li><p>To conduct a comparative analysis of the evolution of the number of industrial enterprises in Turkiye with the educational and gender composition of the R&amp;D workforce over time,</p></li>
+<li><p>To identify statistically significant and structural relationships among these variables,</p></li>
+<li><p>To estimate the effects of entrepreneurial activities on the composition of the R&amp;D workforce through a multiple linear regression model,</p></li>
+<li><p>To develop policy recommendations for Turkiye’s science and technology agenda and industrial strategies based on the findings.</p></li>
+</ul>
+</section>
+<section id="general-analysis-plan" class="level3">
+<h3 class="anchored" data-anchor-id="general-analysis-plan"><strong><em>General Analysis Plan</em></strong></h3>
+<p>The analytical workflow of the project is structured as follows:</p>
+<ol type="1">
+<li><p>Importing the datasets into the R environment, performing data cleaning, and aligning them to a common time frame (2009–2022),</p></li>
+<li><p>Disaggregating the number of R&amp;D personnel by educational level and gender,</p></li>
+<li><p>Analyzing trends through time-series visualizations,</p></li>
+<li><p>Evaluating the relationships between the number of industrial enterprises and specific R&amp;D workforce subcategories (e.g., number of female PhD holders) using Pearson correlation analysis,</p></li>
+<li><p>Testing the causal effects of changes in the number of enterprises on the composition of the R&amp;D workforce through a multiple linear regression model,</p></li>
+<li><p>Interpreting the findings in the context of industrial, educational, and gender policy, and providing concrete recommendations for policymakers.</p></li>
+</ol>
+<p>This analysis plan will not only reveal quantitative relationships but also uncover politically significant demographic and institutional dimensions. The study aims to provide a multidimensional evaluation of the relationship between Turkiye’s industrial development and the accumulation of scientific capital.</p>
+</section>
 </section>
 <section id="data" class="level1">
 <h1>2. Data</h1>
-<p>xxxxxx</p>
+<p>The datasets used in this study consist of comprehensive, large-scale statistical data published annually by the TÜİK, the official statistical agency of Turkiye. Both datasets provide sufficient numerical scope for analysis and allow for meaningful comparisons across both temporal and spatial dimensions.</p>
 <section id="data-source" class="level2">
 <h2 class="anchored" data-anchor-id="data-source">2.1 Data Source</h2>
-<p>xxxxxx</p>
+<p>TÜİK Official Data Portal: https://data.tuik.gov.tr/</p>
+<p>The raw data analyzed in this project were obtained from files downloaded from the TURKSTAT data portal, provided in .xlsx format. The relevant files will be included as source materials on the project’s GitHub page.</p>
 </section>
 <section id="general-information-about-data" class="level2">
 <h2 class="anchored" data-anchor-id="general-information-about-data">2.2 General Information About Data</h2>
-<p>xxxxxx</p>
+<section id="industrial-total-enterprise-count-data" class="level3">
+<h3 class="anchored" data-anchor-id="industrial-total-enterprise-count-data"><em>Industrial Total Enterprise Count Data</em></h3>
+<p>This dataset contains annual figures on the total number of industrial enterprises operating at both national and provincial levels across Turkiye. Available since 2009, it provides a quantitative foundation for monitoring the dynamics of entrepreneurship in the industrial sector.</p>
+</section>
+<section id="rd-activities-data-of-industrial-and-service-enterprises" class="level3">
+<h3 class="anchored" data-anchor-id="rd-activities-data-of-industrial-and-service-enterprises"><em>R&amp;D Activities Data of Industrial and Service Enterprises</em></h3>
+<p>The R&amp;D dataset comprises annual statistics on research and development (R&amp;D) activities conducted by industrial and service enterprises in Turkiye. Regularly published since 2003, the dataset reports the total number of R&amp;D personnel nationwide and classifies this workforce by educational attainment (e.g., doctorate, master’s, bachelor’s degrees) and employment status. As such, it offers rich content in terms of both quantitative magnitude and qualitative detail.</p>
+<p>When considered together, these two datasets enable a relational analysis of entrepreneurial capacity and scientific human capital in Turkiye. Their time-series structure also makes them suitable for modeling and forecasting applications. In particular, the national-level coverage of R&amp;D personnel data, combined with the availability of industrial enterprise counts at both the national and provincial levels, ensures a high degree of representativeness for national-level analysis.</p>
+</section>
 </section>
 <section id="reason-of-choice" class="level2">
 <h2 class="anchored" data-anchor-id="reason-of-choice">2.3 Reason of Choice</h2>
-<p>xxxxxx</p>
+<p>Both datasets have been obtained from up-to-date, publicly available, and reliable sources provided by the TÜİK. The fact that these datasets are published within the context of Turkiye allows this study to contribute as a decision-support tool for policy-making at the national level. Moreover, their time-series structure enables multidimensional statistical analyses.</p>
+<p>In this regard, the selected datasets are well-suited for generating analytical insights within the scope of industrial engineering, particularly in the areas of decision support systems, resource allocation optimization, technology management, and sustainable development.</p>
 </section>
 <section id="preprocessing" class="level2">
 <h2 class="anchored" data-anchor-id="preprocessing">2.4 Preprocessing</h2>
-<p>xxxxxx</p>
+<p>The two main datasets used in this project were obtained from the official portal of the TÜİK in .xlsx format. These datasets are published annually at the national level and cover the number of industrial enterprises as well as the qualitative and demographic characteristics of R&amp;D personnel. Although the data are structured, several preprocessing steps are required to make them ready for analysis.</p>
+<p>The data import and preprocessing workflow will follow these systematic steps:</p>
+<section id="data-import" class="level3">
+<h3 class="anchored" data-anchor-id="data-import"><strong><em>Data Import</em></strong></h3>
+<p>The data files will be imported into the R environment using packages such as readxl, dplyr, and tidyr. During this process, the original data structure will be preserved while transforming the datasets into a format that is both reorganizable and suitable for analysis.</p>
+</section>
+<section id="variable-selection-and-disaggregation" class="level3">
+<h3 class="anchored" data-anchor-id="variable-selection-and-disaggregation"><strong><em>Variable Selection and Disaggregation</em></strong></h3>
+<section id="industrial-enterprise-data" class="level4">
+<h4 class="anchored" data-anchor-id="industrial-enterprise-data"><strong>Industrial Enterprise Data:</strong></h4>
+<p>This dataset presents the annual number of industrial enterprises across Turkiye’s 81 provinces. For the purposes of this project, only the total number of industrial enterprises at the national level will be used. This choice ensures analytical consistency, as the R&amp;D dataset is also provided at the national level.</p>
+</section>
+<section id="rd-personnel-data-by-educational-level" class="level4">
+<h4 class="anchored" data-anchor-id="rd-personnel-data-by-educational-level"><strong>R&amp;D Personnel Data (by Educational Level):</strong></h4>
+<p>The number of R&amp;D personnel is disaggregated by educational attainment (e.g., Doctorate or higher, Master’s, Bachelor’s, Associate degree, and Other). In this study, the trends for each educational category will be analyzed independently over time, and their relationship with the number of industrial enterprises will be examined.</p>
+</section>
+<section id="rd-personnel-data-by-gender" class="level4">
+<h4 class="anchored" data-anchor-id="rd-personnel-data-by-gender"><strong>R&amp;D Personnel Data (by Gender):</strong></h4>
+<p>The dataset also includes total counts of male and female R&amp;D personnel. This demographic distinction enables gender-based analysis of employment in the scientific workforce. Accordingly, the relationship between industrial entrepreneurial capacity and gender-based scientific employment will be evaluated.</p>
+</section>
+</section>
+<section id="temporal-alignment-and-data-merging" class="level3">
+<h3 class="anchored" data-anchor-id="temporal-alignment-and-data-merging"><strong><em>Temporal Alignment and Data Merging</em></strong></h3>
+<p>Although both datasets are published on an annual basis, they may differ in terms of the specific years they cover. Therefore, only the overlapping period from 2009 to 2022 will be included in the analysis. All variables—namely the number of industrial enterprises, R&amp;D personnel by educational level, and R&amp;D personnel by gender—will be merged based on a common year variable to construct a unified multivariate data frame.</p>
+</section>
+<section id="handling-of-missing-observations" class="level3">
+<h3 class="anchored" data-anchor-id="handling-of-missing-observations"><strong><em>Handling of Missing Observations</em></strong></h3>
+<p>Observations with missing values will be marked as NA during the analysis process. Depending on the analytical technique applied, these cases will either be excluded or analyzed separately using the available (non-missing) portions of the data. In the presence of missing values, the reliability of the model outcomes will be assessed with particular attention.</p>
+</section>
+<section id="persistent-data-storage" class="level3">
+<h3 class="anchored" data-anchor-id="persistent-data-storage"><strong>Persistent Data Storage</strong></h3>
+<p>After the data preprocessing procedures are completed, the resulting unified data frame will be saved in .RData format and made accessible via the project’s GitHub repository. This practice ensures the reproducibility of the analytical process and aligns with the principles of open science.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paketlerin yüklenmesi</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Girişim verisinin okunması</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>girisim_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">file.choose</span>(), <span class="at">sheet =</span> <span class="st">"report2"</span>, <span class="at">skip =</span> <span class="dv">0</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(girisim_data)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Ar-Ge verisinin okunması</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>arge_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">file.choose</span>(), <span class="at">sheet =</span> <span class="st">"Sheet0"</span>, <span class="at">skip =</span> <span class="dv">0</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(arge_data)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Eğitim düzeyine göre personel verisinin ayrıştırılması</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a> arge_egitim <span class="ot">&lt;-</span> arge_data <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Education_Level =</span> <span class="fu">str_extract</span>(<span class="st">`</span><span class="at">Education level Occupation Gender</span><span class="st">`</span>, <span class="st">"(?&lt;=Education  Level: ).+?(?=;)"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Education_Level, Year, Number) <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">as.integer</span>(Year),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Number =</span> <span class="fu">as.numeric</span>(Number)  ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Education_Level), <span class="sc">!</span><span class="fu">is.na</span>(Year), Year <span class="sc">&gt;=</span> <span class="dv">2009</span>, Year <span class="sc">&lt;=</span> <span class="dv">2022</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Eğitim düzeyine göre personel verisini tablosunun genişletilmesi</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>arge_egtim_wide <span class="ot">&lt;-</span> arge_egitim <span class="sc">%&gt;%</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">names_from =</span> Education_Level,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">values_from =</span> Number,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">values_fn =</span> <span class="fu">list</span>(<span class="at">Number =</span> sum),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">values_fill =</span> <span class="dv">0</span>  )</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Cinsiyete göre personel verisinin ayrıştırılması</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>arge_gender <span class="ot">&lt;-</span> arge_data <span class="sc">%&gt;%</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">str_extract</span>(<span class="st">`</span><span class="at">Education level Occupation Gender</span><span class="st">`</span>, <span class="st">"(?&lt;=Gender: ).*"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Gender, Year, Number) <span class="sc">%&gt;%</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">as.integer</span>(Year),</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">Number =</span> <span class="fu">as.numeric</span>(Number),</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">str_trim</span>(Gender) ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Gender), <span class="sc">!</span><span class="fu">is.na</span>(Year), Year <span class="sc">&gt;=</span> <span class="dv">2009</span>, Year <span class="sc">&lt;=</span> <span class="dv">2022</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Cinsiyete göre personel verisini tablosunun genişletilmesi</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(tidyr)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  arge_cinsiyet_wide <span class="ot">&lt;-</span> arge_gender <span class="sc">%&gt;%</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a> <span class="fu">pivot_wider</span>(</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> Gender,</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> Number,</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fn =</span> <span class="fu">list</span>(<span class="at">Number =</span> sum),</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="dv">0</span>  )</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a> <span class="co"># Tüm verilerin birleştirilmesi</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>girisim_data<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(girisim_data<span class="sc">$</span>Year)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>arge_egtim_wide<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(arge_egtim_wide<span class="sc">$</span>Year)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>arge_cinsiyet_wide<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(arge_cinsiyet_wide<span class="sc">$</span>Year)</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>veri_birlesik <span class="ot">&lt;-</span> girisim_data <span class="sc">%&gt;%</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(arge_egtim_wide, <span class="at">by =</span> <span class="st">"Year"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(arge_cinsiyet_wide, <span class="at">by =</span> <span class="st">"Year"</span>)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Kaydet</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(veri_birlesik, <span class="at">file =</span> <span class="st">"veri_birlesik_egitim_cinsiyet.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With this structure, the project will enable a detailed statistical investigation of the following relationships during the analysis phase:</p>
+<ul>
+<li><p>The relationship between the number of industrial enterprises and the educational level of the R&amp;D workforce,</p></li>
+<li><p>The relationship between the number of industrial enterprises and the gender distribution (female/male ratio) of R&amp;D personnel.</p></li>
+</ul>
+</section>
 </section>
 </section>
 <section id="analysis" class="level1">
 <h1>3. Analysis</h1>
-<p>xxxxxx</p>
+<p><br>
+The two datasets used in this project consist of quantitative variables that are well-suited for time-series analysis in terms of both content and structure. The key features of these datasets are summarized below:</p>
+<p><strong><em>Industrial Enterprise Data</em></strong></p>
+<p>This dataset contains the annual total number of industrial enterprises operating across Turkey. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.</p>
+<p><strong><em>R&amp;D Data</em></strong></p>
+<p>This dataset includes the annual number of R&amp;D personnel employed by industrial and service sector enterprises across Turkey. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&amp;D personnel data directly reflect scientific capacity, the variable holds strategic importance.</p>
+<p>Both variables are quantitative and structured in a yearly time-series format. This structure allows for the application of both visual and model-based analytical techniques.</p>
+<p><strong><em>Potential Analytical Approaches</em></strong></p>
+<p>The types of analyses planned to be implemented in the project can be grouped under the following categories:</p>
+<p><strong><em>Time-Series Visualizations</em></strong></p>
+<p>Using advanced visualization libraries such as ggplot2, the temporal changes in the number of industrial enterprises and R&amp;D personnel will be presented through line graphs. These visualizations will facilitate intuitive interpretation of trends over time.</p>
+<p><strong><em>Correlation Analysis (Pearson Coefficient)</em></strong></p>
+<p>The strength of the linear relationship between the number of industrial enterprises and the number of R&amp;D personnel will be measured using the Pearson correlation coefficient. This analysis will indicate both the direction and the magnitude of the linear association between the two variables.</p>
+<p><strong><em>Linear Regression Analysis</em></strong></p>
+<p>A simple linear regression model will be constructed using the lm() function, where the number of enterprises will serve as the independent variable and the R&amp;D workforce as the dependent variable. This will allow for testing potential cause-and-effect relationships.</p>
+<p><strong><em>Causal Relationship Assessment</em></strong></p>
+<p>The results of the regression analysis will be used to evaluate the impact of industrial entrepreneurship on R&amp;D capacity. This, in turn, will enable inferences regarding the level of integration between industrial policies and science and technology strategies.</p>
 <section id="exploratory-data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">3.1 Exploratory Data Analysis</h2>
 <p>xxxxxx</p>
