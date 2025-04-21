@@ -2,9 +2,7 @@
 title: "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye"
 ---
 
-**Project Team Members:**
-
-***Burcu ALTUNOĞLU - Mustafa Erdem BAKIR***
+#### ***Burcu ALTUNOĞLU - Mustafa Erdem BAKIR***
 
 Welcome to our project page.
 
@@ -20,7 +18,7 @@ What is the impact of changes in the number of industrial enterprises in Turkiye
 
 In addressing this question, the analysis will not only consider the total number of R&D personnel, but also account for variations in their educational attainment and gender composition.
 
-***Research Objectives***
+### ***Research Objectives***
 
 The primary objectives of this study are as follows:
 
@@ -110,7 +108,7 @@ Although both datasets are published on an annual basis, they may differ in term
 
 Observations with missing values will be marked as NA during the analysis process. Depending on the analytical technique applied, these cases will either be excluded or analyzed separately using the available (non-missing) portions of the data. In the presence of missing values, the reliability of the model outcomes will be assessed with particular attention.
 
-### **Persistent Data Storage**
+### ***Persistent Data Storage***
 
 After the data preprocessing procedures are completed, the resulting unified data frame will be saved in .RData format and made accessible via the project’s GitHub repository. This practice ensures the reproducibility of the analytical process and aligns with the principles of open science.
 

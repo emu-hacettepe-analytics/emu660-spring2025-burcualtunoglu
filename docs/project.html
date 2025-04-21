@@ -172,6 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#project-overview-and-scope" id="toc-project-overview-and-scope" class="nav-link active" data-scroll-target="#project-overview-and-scope">1. Project Overview and Scope</a>
   <ul class="collapse">
   <li><a href="#problem-definition" id="toc-problem-definition" class="nav-link" data-scroll-target="#problem-definition"><strong><em>Problem Definition</em></strong></a></li>
+  <li><a href="#research-objectives" id="toc-research-objectives" class="nav-link" data-scroll-target="#research-objectives"><strong><em>Research Objectives</em></strong></a></li>
   <li><a href="#general-analysis-plan" id="toc-general-analysis-plan" class="nav-link" data-scroll-target="#general-analysis-plan"><strong><em>General Analysis Plan</em></strong></a></li>
   </ul></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2. Data</a>
@@ -189,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#variable-selection-and-disaggregation" id="toc-variable-selection-and-disaggregation" class="nav-link" data-scroll-target="#variable-selection-and-disaggregation"><strong><em>Variable Selection and Disaggregation</em></strong></a></li>
   <li><a href="#temporal-alignment-and-data-merging" id="toc-temporal-alignment-and-data-merging" class="nav-link" data-scroll-target="#temporal-alignment-and-data-merging"><strong><em>Temporal Alignment and Data Merging</em></strong></a></li>
   <li><a href="#handling-of-missing-observations" id="toc-handling-of-missing-observations" class="nav-link" data-scroll-target="#handling-of-missing-observations"><strong><em>Handling of Missing Observations</em></strong></a></li>
-  <li><a href="#persistent-data-storage" id="toc-persistent-data-storage" class="nav-link" data-scroll-target="#persistent-data-storage"><strong>Persistent Data Storage</strong></a></li>
+  <li><a href="#persistent-data-storage" id="toc-persistent-data-storage" class="nav-link" data-scroll-target="#persistent-data-storage"><strong><em>Persistent Data Storage</em></strong></a></li>
   </ul></li>
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">3. Analysis</a>
@@ -229,9 +230,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Project Team Members:</strong></p>
-<p><strong><em>Burcu ALTUNOĞLU - Mustafa Erdem BAKIR</em></strong></p>
+<section id="burcu-altunoğlu---mustafa-erdem-bakir" class="level4">
+<h4 class="anchored" data-anchor-id="burcu-altunoğlu---mustafa-erdem-bakir"><strong><em>Burcu ALTUNOĞLU - Mustafa Erdem BAKIR</em></strong></h4>
 <p>Welcome to our project page.</p>
+</section>
 <section id="project-overview-and-scope" class="level1">
 <h1>1. Project Overview and Scope</h1>
 <section id="problem-definition" class="level3">
@@ -240,7 +242,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this context, the primary research question of the project is defined as follows:</p>
 <p>What is the impact of changes in the number of industrial enterprises in Turkiye on the educational level and gender distribution of R&amp;D personnel between 2009 and 2022?</p>
 <p>In addressing this question, the analysis will not only consider the total number of R&amp;D personnel, but also account for variations in their educational attainment and gender composition.</p>
-<p><strong><em>Research Objectives</em></strong></p>
+</section>
+<section id="research-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="research-objectives"><strong><em>Research Objectives</em></strong></h3>
 <p>The primary objectives of this study are as follows:</p>
 <ul>
 <li><p>To conduct a comparative analysis of the evolution of the number of industrial enterprises in Turkiye with the educational and gender composition of the R&amp;D workforce over time,</p></li>
@@ -320,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Observations with missing values will be marked as NA during the analysis process. Depending on the analytical technique applied, these cases will either be excluded or analyzed separately using the available (non-missing) portions of the data. In the presence of missing values, the reliability of the model outcomes will be assessed with particular attention.</p>
 </section>
 <section id="persistent-data-storage" class="level3">
-<h3 class="anchored" data-anchor-id="persistent-data-storage"><strong>Persistent Data Storage</strong></h3>
+<h3 class="anchored" data-anchor-id="persistent-data-storage"><strong><em>Persistent Data Storage</em></strong></h3>
 <p>After the data preprocessing procedures are completed, the resulting unified data frame will be saved in .RData format and made accessible via the project’s GitHub repository. This practice ensures the reproducibility of the analytical process and aligns with the principles of open science.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paketlerin yüklenmesi</span></span>
