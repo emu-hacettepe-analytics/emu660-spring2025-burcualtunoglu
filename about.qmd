@@ -40,7 +40,7 @@ R, Quarto, Git, Python, Arena
 
 # Resume
 
-[Burcu Altunoglu-CV](docs/Burcu Altunoglu_CV.pdf)
+[Burcu Altunoglu-CV](docs/Burcu%20Altunoglu_CV.pdf)
 
 # Hobbies
 
@@ -49,5 +49,3 @@ R, Quarto, Git, Python, Arena
 -   Playing Video Games
 
 -   Reading Books
-
-
