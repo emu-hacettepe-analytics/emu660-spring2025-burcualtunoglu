@@ -113,59 +113,64 @@ Observations with missing values will be marked as NA during the analysis proces
 After the data preprocessing procedures are completed, the resulting unified data frame will be saved in .RData format and made accessible via the project’s GitHub repository. This practice ensures the reproducibility of the analytical process and aligns with the principles of open science.
 
 ```{r}
-# Paketlerin yüklenmesi
+# Gerekli paketler
+# Gerekli paketler
 library(readxl)
 library(dplyr)
 library(tidyr)
-# Girişim verisinin okunması
-girisim_data <- read_excel("Sanayi-toplam girisim sayisi.xlsx", sheet = "report2", skip = 0)
-View(girisim_data)
-# Ar-Ge verisinin okunması
-arge_data <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx", sheet = "Sheet0", skip = 0)
-View(arge_data)
-# Eğitim düzeyine göre personel verisinin ayrıştırılması
 library(stringr)
- arge_egitim <- arge_data %>%
-  mutate(Education_Level = str_extract(`Education level Occupation Gender`, "(?<=Education  Level: ).+?(?=;)")) %>%
-  select(Education_Level, Year, Number) %>%
+
+# Girişim verisinin okunması
+girisim_data <- read_excel("Sanayi-toplam girisim sayisi.xlsx", sheet = "report2")
+girisim_data$Year <- as.integer(girisim_data$Year)
+
+# Ar-Ge verisinin okunması
+arge_data <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx", sheet = "Sheet0")
+
+# Eğitim düzeyine göre verinin düzenlenmesi
+arge_egitim <- arge_data %>%
+  select(`Education level`, Year, Number) %>%
+  rename(Education_Level = `Education level`) %>%
   mutate(
     Year = as.integer(Year),
-    Number = as.numeric(Number)  ) %>%
+    Number = as.numeric(Number)
+  ) %>%
   filter(!is.na(Education_Level), !is.na(Year), Year >= 2009, Year <= 2022)
-# Eğitim düzeyine göre personel verisini tablosunun genişletilmesi
-arge_egtim_wide <- arge_egitim %>%
+
+arge_egitim_wide <- arge_egitim %>%
   pivot_wider(
-      names_from = Education_Level,
-      values_from = Number,
-     values_fn = list(Number = sum),
-     values_fill = 0  )
-# Cinsiyete göre personel verisinin ayrıştırılması
+    names_from = Education_Level,
+    values_from = Number,
+    values_fn = sum,
+    values_fill = 0
+  )
+
+# Cinsiyete göre verinin düzenlenmesi
 arge_gender <- arge_data %>%
-  mutate(Gender = str_extract(`Education level Occupation Gender`, "(?<=Gender: ).*")) %>%
   select(Gender, Year, Number) %>%
   mutate(
     Year = as.integer(Year),
     Number = as.numeric(Number),
-    Gender = str_trim(Gender) ) %>%
-    filter(!is.na(Gender), !is.na(Year), Year >= 2009, Year <= 2022)
-# Cinsiyete göre personel verisini tablosunun genişletilmesi
- library(tidyr)
-  library(dplyr)
-  arge_cinsiyet_wide <- arge_gender %>%
- pivot_wider(
+    Gender = str_trim(Gender)
+  ) %>%
+  filter(!is.na(Gender), !is.na(Year), Year >= 2009, Year <= 2022)
+
+arge_cinsiyet_wide <- arge_gender %>%
+  pivot_wider(
     names_from = Gender,
     values_from = Number,
-    values_fn = list(Number = sum),
-    values_fill = 0  )
- # Tüm verilerin birleştirilmesi
-girisim_data$Year <- as.integer(girisim_data$Year)
-arge_egtim_wide$Year <- as.integer(arge_egtim_wide$Year)
-arge_cinsiyet_wide$Year <- as.integer(arge_cinsiyet_wide$Year)
+    values_fn = sum,
+    values_fill = 0
+  )
+
+# Verilerin birleştirilmesi
 veri_birlesik <- girisim_data %>%
-  left_join(arge_egtim_wide, by = "Year") %>%
+  left_join(arge_egitim_wide, by = "Year") %>%
   left_join(arge_cinsiyet_wide, by = "Year")
+
 # Kaydet
 save(veri_birlesik, file = "veri_birlesik_egitim_cinsiyet.RData")
+
 
 ```
 
