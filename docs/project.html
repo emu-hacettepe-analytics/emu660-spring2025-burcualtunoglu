@@ -195,7 +195,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">3. Analysis</a>
   <ul class="collapse">
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">3.1 Exploratory Data Analysis</a></li>
+  <li><a href="#dataset-overview" id="toc-dataset-overview" class="nav-link" data-scroll-target="#dataset-overview"><strong><em>Dataset Overview</em></strong></a></li>
+  <li><a href="#key-visualizations" id="toc-key-visualizations" class="nav-link" data-scroll-target="#key-visualizations">Key Visualizations</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">3.1 Exploratory Data Analysis</a>
+  <ul class="collapse">
+  <li><a href="#correlation-analysis" id="toc-correlation-analysis" class="nav-link" data-scroll-target="#correlation-analysis">Correlation Analysis</a></li>
+  </ul></li>
   <li><a href="#trend-analysis" id="toc-trend-analysis" class="nav-link" data-scroll-target="#trend-analysis">3.2 Trend Analysis</a></li>
   <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting">3.3 Model Fitting</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">3.4 Results</a></li>
@@ -327,9 +332,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="persistent-data-storage"><strong><em>Persistent Data Storage</em></strong></h3>
 <p>After the data preprocessing procedures are completed, the resulting unified data frame will be saved in .RData format and made accessible via the project’s GitHub repository. This practice ensures the reproducibility of the analytical process and aligns with the principles of open science.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paketlerin yüklenmesi</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerekli paketler</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerekli paketler</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'dplyr'</code></pre>
@@ -345,55 +351,58 @@ Attaching package: 'dplyr'</code></pre>
     intersect, setdiff, setequal, union</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Girişim verisinin okunması</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>girisim_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">file.choose</span>(), <span class="at">sheet =</span> <span class="st">"report2"</span>, <span class="at">skip =</span> <span class="dv">0</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(girisim_data)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Ar-Ge verisinin okunması</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>arge_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="fu">file.choose</span>(), <span class="at">sheet =</span> <span class="st">"Sheet0"</span>, <span class="at">skip =</span> <span class="dv">0</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(arge_data)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Eğitim düzeyine göre personel verisinin ayrıştırılması</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a> arge_egitim <span class="ot">&lt;-</span> arge_data <span class="sc">%&gt;%</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Education_Level =</span> <span class="fu">str_extract</span>(<span class="st">`</span><span class="at">Education level Occupation Gender</span><span class="st">`</span>, <span class="st">"(?&lt;=Education  Level: ).+?(?=;)"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Education_Level, Year, Number) <span class="sc">%&gt;%</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">as.integer</span>(Year),</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Number =</span> <span class="fu">as.numeric</span>(Number)  ) <span class="sc">%&gt;%</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Education_Level), <span class="sc">!</span><span class="fu">is.na</span>(Year), Year <span class="sc">&gt;=</span> <span class="dv">2009</span>, Year <span class="sc">&lt;=</span> <span class="dv">2022</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Eğitim düzeyine göre personel verisini tablosunun genişletilmesi</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>arge_egtim_wide <span class="ot">&lt;-</span> arge_egitim <span class="sc">%&gt;%</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">names_from =</span> Education_Level,</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">values_from =</span> Number,</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">values_fn =</span> <span class="fu">list</span>(<span class="at">Number =</span> sum),</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">values_fill =</span> <span class="dv">0</span>  )</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Cinsiyete göre personel verisinin ayrıştırılması</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>arge_gender <span class="ot">&lt;-</span> arge_data <span class="sc">%&gt;%</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Gender =</span> <span class="fu">str_extract</span>(<span class="st">`</span><span class="at">Education level Occupation Gender</span><span class="st">`</span>, <span class="st">"(?&lt;=Gender: ).*"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Gender, Year, Number) <span class="sc">%&gt;%</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">as.integer</span>(Year),</span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">Number =</span> <span class="fu">as.numeric</span>(Number),</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">str_trim</span>(Gender) ) <span class="sc">%&gt;%</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Gender), <span class="sc">!</span><span class="fu">is.na</span>(Year), Year <span class="sc">&gt;=</span> <span class="dv">2009</span>, Year <span class="sc">&lt;=</span> <span class="dv">2022</span>)</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Cinsiyete göre personel verisini tablosunun genişletilmesi</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a> <span class="fu">library</span>(tidyr)</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  arge_cinsiyet_wide <span class="ot">&lt;-</span> arge_gender <span class="sc">%&gt;%</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a> <span class="fu">pivot_wider</span>(</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> Gender,</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> Number,</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fn =</span> <span class="fu">list</span>(<span class="at">Number =</span> sum),</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="dv">0</span>  )</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a> <span class="co"># Tüm verilerin birleştirilmesi</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>girisim_data<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(girisim_data<span class="sc">$</span>Year)</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>arge_egtim_wide<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(arge_egtim_wide<span class="sc">$</span>Year)</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>arge_cinsiyet_wide<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(arge_cinsiyet_wide<span class="sc">$</span>Year)</span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>veri_birlesik <span class="ot">&lt;-</span> girisim_data <span class="sc">%&gt;%</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(arge_egtim_wide, <span class="at">by =</span> <span class="st">"Year"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(arge_cinsiyet_wide, <span class="at">by =</span> <span class="st">"Year"</span>)</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Kaydet</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(veri_birlesik, <span class="at">file =</span> <span class="st">"veri_birlesik_egitim_cinsiyet.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Girişim verisinin okunması</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>girisim_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi-toplam girisim sayisi.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"report2"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>girisim_data<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(girisim_data<span class="sc">$</span>Year)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Ar-Ge verisinin okunması</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>arge_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"Sheet0"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Eğitim düzeyine göre verinin düzenlenmesi</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>arge_egitim <span class="ot">&lt;-</span> arge_data <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Education level</span><span class="st">`</span>, Year, Number) <span class="sc">%&gt;%</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Education_Level =</span> <span class="st">`</span><span class="at">Education level</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">as.integer</span>(Year),</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Number =</span> <span class="fu">as.numeric</span>(Number)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Education_Level), <span class="sc">!</span><span class="fu">is.na</span>(Year), Year <span class="sc">&gt;=</span> <span class="dv">2009</span>, Year <span class="sc">&lt;=</span> <span class="dv">2022</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>arge_egitim_wide <span class="ot">&lt;-</span> arge_egitim <span class="sc">%&gt;%</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> Education_Level,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> Number,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fn =</span> sum,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="dv">0</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Cinsiyete göre verinin düzenlenmesi</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>arge_gender <span class="ot">&lt;-</span> arge_data <span class="sc">%&gt;%</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Gender, Year, Number) <span class="sc">%&gt;%</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">as.integer</span>(Year),</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">Number =</span> <span class="fu">as.numeric</span>(Number),</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">Gender =</span> <span class="fu">str_trim</span>(Gender)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Gender), <span class="sc">!</span><span class="fu">is.na</span>(Year), Year <span class="sc">&gt;=</span> <span class="dv">2009</span>, Year <span class="sc">&lt;=</span> <span class="dv">2022</span>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>arge_cinsiyet_wide <span class="ot">&lt;-</span> arge_gender <span class="sc">%&gt;%</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> Gender,</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> Number,</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fn =</span> sum,</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="dv">0</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Verilerin birleştirilmesi</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>veri_birlesik <span class="ot">&lt;-</span> girisim_data <span class="sc">%&gt;%</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(arge_egitim_wide, <span class="at">by =</span> <span class="st">"Year"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(arge_cinsiyet_wide, <span class="at">by =</span> <span class="st">"Year"</span>)</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Kaydet</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(veri_birlesik, <span class="at">file =</span> <span class="st">"veri_birlesik_egitim_cinsiyet.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With this structure, the project will enable a detailed statistical investigation of the following relationships during the analysis phase:</p>
 <ul>
@@ -407,24 +416,258 @@ Attaching package: 'dplyr'</code></pre>
 <h1>3. Analysis</h1>
 <p><br>
 The two datasets used in this project consist of quantitative variables that are well-suited for time-series analysis in terms of both content and structure. The key features of these datasets are summarized below:</p>
-<p><strong><em>Industrial Enterprise Data</em></strong></p>
-<p>This dataset contains the annual total number of industrial enterprises operating across Turkey. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.</p>
-<p><strong><em>R&amp;D Data</em></strong></p>
-<p>This dataset includes the annual number of R&amp;D personnel employed by industrial and service sector enterprises across Turkey. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&amp;D personnel data directly reflect scientific capacity, the variable holds strategic importance.</p>
+<section id="dataset-overview" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-overview"><strong><em>Dataset Overview</em></strong></h3>
+<p>Industrial Enterprise Data contains the annual total number of industrial enterprises operating across Turkey. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.</p>
+<p>R&amp;D Data includes the annual number of R&amp;D personnel employed by industrial and service sector enterprises across Turkey. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&amp;D personnel data directly reflect scientific capacity, the variable holds strategic importance.</p>
 <p>Both variables are quantitative and structured in a yearly time-series format. This structure allows for the application of both visual and model-based analytical techniques.</p>
-<p><strong><em>Potential Analytical Approaches</em></strong></p>
-<p>The types of analyses planned to be implemented in the project can be grouped under the following categories:</p>
-<p><strong><em>Time-Series Visualizations</em></strong></p>
-<p>Using advanced visualization libraries such as ggplot2, the temporal changes in the number of industrial enterprises and R&amp;D personnel will be presented through line graphs. These visualizations will facilitate intuitive interpretation of trends over time.</p>
-<p><strong><em>Correlation Analysis (Pearson Coefficient)</em></strong></p>
-<p>The strength of the linear relationship between the number of industrial enterprises and the number of R&amp;D personnel will be measured using the Pearson correlation coefficient. This analysis will indicate both the direction and the magnitude of the linear association between the two variables.</p>
-<p><strong><em>Linear Regression Analysis</em></strong></p>
-<p>A simple linear regression model will be constructed using the lm() function, where the number of enterprises will serve as the independent variable and the R&amp;D workforce as the dependent variable. This will allow for testing potential cause-and-effect relationships.</p>
-<p><strong><em>Causal Relationship Assessment</em></strong></p>
-<p>The results of the regression analysis will be used to evaluate the impact of industrial entrepreneurship on R&amp;D capacity. This, in turn, will enable inferences regarding the level of integration between industrial policies and science and technology strategies.</p>
+</section>
+<section id="key-visualizations" class="level3">
+<h3 class="anchored" data-anchor-id="key-visualizations">Key Visualizations</h3>
+<p><strong><em>Trends in the Total Number of Industrial Enterprises Over Time</em></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(veri_birlesik, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> <span class="st">`</span><span class="at">Total Number of Enterprises</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Total Number of Industrial Enterprises Over Time"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Enterprises"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The figure shows a steady upward trend in the total number of industrial enterprises in Turkey between 2009 and 2022. The growth, which was limited in the 2009-2015 period, gained momentum after 2016; a significant increase was observed especially between 2020-2021. This rapid rise can be attributed to the transformation in production structures and digitalization during the pandemic period. However, the stagnation in 2022 points to the impact of market saturation or macroeconomic constraints. Overall, there is a quantitative growth in industrial entrepreneurship, but the sustainability and qualitative effects of this growth should be evaluated separately.</p>
+<p><strong><em>Distribution of R&amp;D Personnel by Educational Attainment</em></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Required packages</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the Excel file</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter between 2009 and 2023</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>df_filtered <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2009</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by Year and Education Level</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>df_grouped <span class="ot">&lt;-</span> df_filtered <span class="sc">%&gt;%</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, <span class="st">`</span><span class="at">Education level</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_grouped, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Total, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">`</span><span class="at">Education level</span><span class="st">`</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of R&amp;D Personnel by Education Level (2009–2023)"</span>,</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Personnel"</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>An analysis of the distribution of R&amp;D personnel in Turkey by educational level between 2009 and 2023 reveals that the number of bachelor’s degree graduates is by far the highest and has been increasing rapidly over the years. While there is also an increase in the number of master’s and associate’s degree graduates, it is noteworthy that the number of personnel with a doctorate degree and above remains relatively limited. This indicates that there is an increasing need for highly qualified human resources in R&amp;D activities, but this need has not yet been adequately met. While the proportion of high school graduates tends to decrease over time, the number of personnel in the “other” category fluctuates. In general, it can be said that there is a transformation in the R&amp;D personnel structure towards higher levels of education.</p>
+<p><strong><em>Distribution of R&amp;D Personnel by Gender</em></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Excel dosyasını oku</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2009–2023 filtrele</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>df_filtered <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2009</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Cinsiyete göre yıllık toplam</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>df_gender <span class="ot">&lt;-</span> df_filtered <span class="sc">%&gt;%</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Grafik</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_gender, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Total, <span class="at">color =</span> Gender, <span class="at">group =</span> Gender)) <span class="sc">+</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of R&amp;D Personnel by Gender (2009–2023)"</span>,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Personnel"</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Gender"</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>An analysis of the distribution of personnel employed in R&amp;D in Turkey between 2009 and 2023 by gender shows that the number of male personnel increased steadily every year, reaching over 135,000 by 2023. The number of female personnel has shown a similar upward trend; however, this increase has been more limited compared to men, reaching approximately 60,000 in 2023. This indicates that a gender-based imbalance persists in the R&amp;D sector.</p>
+<p>It is noteworthy that the increase in the number of female personnel gained momentum especially after 2016. This increase shows that women’s participation in R&amp;D activities has strengthened and that there has been a positive development in terms of gender equality. However, the current picture reveals the need for more comprehensive and sustainable policies to increase the representation of women in R&amp;D.</p>
+<p><strong><em>Share of Female R&amp;D Personnel</em></strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Excel dosyasını oku</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2009–2023 filtrele</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>df_filtered <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2009</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Cinsiyet bazında yıllık toplamlar</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>df_gender <span class="ot">&lt;-</span> df_filtered <span class="sc">%&gt;%</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Gender, <span class="at">values_from =</span> Total)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Sütun adlarını düzelt</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_gender) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Kadın oranını hesapla</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>df_gender <span class="ot">&lt;-</span> df_gender <span class="sc">%&gt;%</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Female_Ratio =</span> Female <span class="sc">/</span> (Female <span class="sc">+</span> Male) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>df_gender<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(df_gender<span class="sc">$</span>Year)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Geliştirilmiş grafik</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_gender, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Female_Ratio, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#C51B7D"</span>, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>) <span class="sc">+</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#C51B7D"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">stroke =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2009</span>, <span class="dv">2023</span>, <span class="at">by =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Female Share of R&amp;D Personnel in Turkey (2009–2023)"</span>,</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Proportion of female employees among all R&amp;D personnel over time"</span>,</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Female Share (%)"</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"gray30"</span>),</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Between 2009 and 2023, the ratio of female employees in the R&amp;D sector in Turkey increased steadily. From 21.5% in 2009, the proportion of female employees increased to 27.8% by 2023. This increase shows that women’s participation in R&amp;D activities is strengthening and that there is a positive trend towards gender equality. However, the ratio is still below 30%, indicating that policies to increase the representation of women in R&amp;D need to be sustained and further supported.</p>
+</section>
 <section id="exploratory-data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">3.1 Exploratory Data Analysis</h2>
-<p>xxxxxx</p>
+<section id="correlation-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-analysis">Correlation Analysis</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the Excel files</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>enterprises <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi-toplam girisim sayisi.xlsx"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>rd <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for the years 2009–2023</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>enterprises <span class="ot">&lt;-</span> enterprises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2009</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>rd <span class="ot">&lt;-</span> rd <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2009</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>rd<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(rd<span class="sc">$</span>Year)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>enterprises<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(enterprises<span class="sc">$</span>Year)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Proceed with merging</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>merged <span class="ot">&lt;-</span> rd <span class="sc">%&gt;%</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(enterprises, <span class="at">by =</span> <span class="st">"Year"</span>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Summarize R&amp;D personnel by education level and year</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>education_summary <span class="ot">&lt;-</span> merged <span class="sc">%&gt;%</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, <span class="st">`</span><span class="at">Education level</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">`</span><span class="at">Education level</span><span class="st">`</span>, <span class="at">values_from =</span> Total)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with enterprise numbers</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>correlation_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(education_summary, enterprises, <span class="at">by =</span> <span class="st">"Year"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Enterprises =</span> <span class="st">`</span><span class="at">Total Number of Enterprises</span><span class="st">`</span>)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Pearson correlation analysis</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>education_vars <span class="ot">&lt;-</span> <span class="fu">names</span>(correlation_data)[<span class="sc">!</span>(<span class="fu">names</span>(correlation_data) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Enterprises"</span>))]</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> education_vars) {</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>  test_data <span class="ot">&lt;-</span> correlation_data <span class="sc">%&gt;%</span> <span class="fu">select</span>(Enterprises, <span class="fu">all_of</span>(var)) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(test_data) <span class="sc">&gt;=</span> <span class="dv">3</span>) {</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(test_data[[<span class="dv">1</span>]], test_data[[<span class="dv">2</span>]], <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"----"</span>, var, <span class="st">"----</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Pearson Correlation Coefficient (r):"</span>, <span class="fu">round</span>(result<span class="sc">$</span>estimate, <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"p-value:"</span>, <span class="fu">signif</span>(result<span class="sc">$</span>p.value, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"----"</span>, var, <span class="st">"----</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Insufficient data: correlation test could not be performed.</span><span class="sc">\n\n</span><span class="st">"</span>)</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>---- Associate Degree ----
+Pearson Correlation Coefficient (r): 0.97 
+p-value: 8.872e-10 
+
+---- Bachelor's Degree ----
+Pearson Correlation Coefficient (r): 1 
+p-value: 6.472e-15 
+
+---- Doctorate or Higher ----
+Pearson Correlation Coefficient (r): 0.96 
+p-value: 1.119e-08 
+
+---- High School ----
+Pearson Correlation Coefficient (r): 0.94 
+p-value: 1.441e-07 
+
+---- Master's Degree ----
+Pearson Correlation Coefficient (r): 0.98 
+p-value: 3.001e-11 
+
+---- Other ----
+Pearson Correlation Coefficient (r): -0.87 
+p-value: 2.649e-05 </code></pre>
+</div>
+</div>
+<p>Positive and strong correlation coefficients are observed for all education levels (except “Other”). In particular, there is an almost perfect linear relationship between bachelor’s degree graduates (r = 1.00, p &lt; 0.001) and the number of industrial enterprises. This suggests that the number of R&amp;D personnel employed at the bachelor’s level increases systematically with the increase in the number of enterprises. Similarly, master’s (r = 0.98) and associate degree (r = 0.97) graduates also exhibit very strong and highly statistically significant relationships. Strong positive correlations are also obtained for PhD and high school graduates (r = 0.96 and r = 0.94, respectively), suggesting that industrial development generally increases the demand for R&amp;D personnel from all educational levels.</p>
+<p>The notable exception is the category “Other”. A negative correlation coefficient (r = -0.87, p &lt; 0.001) was calculated in this group. This suggests that the number of staff with “Other” educational attainment decreases as the number of enterprises increases, suggesting that industrialization has pushed this group of staff out of the system or that employment patterns have changed. This result suggests that the definitions of education level should be clarified and the transformation in this group should be examined in detail.</p>
+</section>
 </section>
 <section id="trend-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="trend-analysis">3.2 Trend Analysis</h2>
