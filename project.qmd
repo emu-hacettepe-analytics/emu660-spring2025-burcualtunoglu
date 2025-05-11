@@ -4,8 +4,6 @@ title: "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resource
 
 #### ***Burcu ALTUNOĞLU - Mustafa Erdem BAKIR***
 
-Welcome to our project page.
-
 # 1. Project Overview and Scope
 
 ### ***Problem Definition***
@@ -29,24 +27,6 @@ The primary objectives of this study are as follows:
 -   To estimate the effects of entrepreneurial activities on the composition of the R&D workforce through a multiple linear regression model,
 
 -   To develop policy recommendations for Turkiye’s science and technology agenda and industrial strategies based on the findings.
-
-### ***General Analysis Plan***
-
-The analytical workflow of the project is structured as follows:
-
-1.  Importing the datasets into the R environment, performing data cleaning, and aligning them to a common time frame (2009–2022),
-
-2.  Disaggregating the number of R&D personnel by educational level and gender,
-
-3.  Analyzing trends through time-series visualizations,
-
-4.  Evaluating the relationships between the number of industrial enterprises and specific R&D workforce subcategories (e.g., number of female PhD holders) using Pearson correlation analysis,
-
-5.  Testing the causal effects of changes in the number of enterprises on the composition of the R&D workforce through a multiple linear regression model,
-
-6.  Interpreting the findings in the context of industrial, educational, and gender policy, and providing concrete recommendations for policymakers.
-
-This analysis plan will not only reveal quantitative relationships but also uncover politically significant demographic and institutional dimensions. The study aims to provide a multidimensional evaluation of the relationship between Turkiye’s industrial development and the accumulation of scientific capital.
 
 # 2. Data
 
@@ -187,9 +167,9 @@ The two datasets used in this project consist of quantitative variables that are
 
 ### ***Dataset Overview***
 
-Industrial Enterprise Data contains the annual total number of industrial enterprises operating across Turkey. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.
+Industrial Enterprise Data contains the annual total number of industrial enterprises operating across Turkiye. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.
 
-R&D Data includes the annual number of R&D personnel employed by industrial and service sector enterprises across Turkey. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&D personnel data directly reflect scientific capacity, the variable holds strategic importance.
+R&D Data includes the annual number of R&D personnel employed by industrial and service sector enterprises across Turkiye. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&D personnel data directly reflect scientific capacity, the variable holds strategic importance.
 
 Both variables are quantitative and structured in a yearly time-series format. This structure allows for the application of both visual and model-based analytical techniques.
 
@@ -210,7 +190,7 @@ ggplot(veri_birlesik, aes(x = Year, y = `Total Number of Enterprises`)) +
 
 ```
 
-The figure shows a steady upward trend in the total number of industrial enterprises in Turkey between 2009 and 2022. The growth, which was limited in the 2009-2015 period, gained momentum after 2016; a significant increase was observed especially between 2020-2021. This rapid rise can be attributed to the transformation in production structures and digitalization during the pandemic period. However, the stagnation in 2022 points to the impact of market saturation or macroeconomic constraints. Overall, there is a quantitative growth in industrial entrepreneurship, but the sustainability and qualitative effects of this growth should be evaluated separately.
+The figure shows a steady upward trend in the total number of industrial enterprises in Turkiye between 2009 and 2022. The growth, which was limited in the 2009-2015 period, gained momentum after 2016; a significant increase was observed especially between 2020-2021. This rapid rise can be attributed to the transformation in production structures and digitalization during the pandemic period. However, the stagnation in 2022 points to the impact of market saturation or macroeconomic constraints. Overall, there is a quantitative growth in industrial entrepreneurship, but the sustainability and qualitative effects of this growth should be evaluated separately.
 
 ***Distribution of R&D Personnel by Educational Attainment***
 
@@ -249,7 +229,7 @@ ggplot(df_grouped, aes(x = Year, y = Total, group = 1)) +
 
 ```
 
-An analysis of the distribution of R&D personnel in Turkey by educational level between 2009 and 2023 reveals that the number of bachelor's degree graduates is by far the highest and has been increasing rapidly over the years. While there is also an increase in the number of master's and associate's degree graduates, it is noteworthy that the number of personnel with a doctorate degree and above remains relatively limited. This indicates that there is an increasing need for highly qualified human resources in R&D activities, but this need has not yet been adequately met. While the proportion of high school graduates tends to decrease over time, the number of personnel in the “other” category fluctuates. In general, it can be said that there is a transformation in the R&D personnel structure towards higher levels of education.
+An analysis of the distribution of R&D personnel in Turkiye by educational level between 2009 and 2023 reveals that the number of bachelor's degree graduates is by far the highest and has been increasing rapidly over the years. While there is also an increase in the number of master's and associate's degree graduates, it is noteworthy that the number of personnel with a doctorate degree and above remains relatively limited. This indicates that there is an increasing need for highly qualified human resources in R&D activities, but this need has not yet been adequately met. While the proportion of high school graduates tends to decrease over time, the number of personnel in the “other” category fluctuates. In general, it can be said that there is a transformation in the R&D personnel structure towards higher levels of education.
 
 ***Distribution of R&D Personnel by Gender***
 
@@ -286,7 +266,7 @@ ggplot(df_gender, aes(x = Year, y = Total, color = Gender, group = Gender)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-An analysis of the distribution of personnel employed in R&D in Turkey between 2009 and 2023 by gender shows that the number of male personnel increased steadily every year, reaching over 135,000 by 2023. The number of female personnel has shown a similar upward trend; however, this increase has been more limited compared to men, reaching approximately 60,000 in 2023. This indicates that a gender-based imbalance persists in the R&D sector.
+An analysis of the distribution of personnel employed in R&D in Turkiye between 2009 and 2023 by gender shows that the number of male personnel increased steadily every year, reaching over 135,000 by 2023. The number of female personnel has shown a similar upward trend; however, this increase has been more limited compared to men, reaching approximately 60,000 in 2023. This indicates that a gender-based imbalance persists in the R&D sector.
 
 It is noteworthy that the increase in the number of female personnel gained momentum especially after 2016. This increase shows that women's participation in R&D activities has strengthened and that there has been a positive development in terms of gender equality. However, the current picture reveals the need for more comprehensive and sustainable policies to increase the representation of women in R&D.
 
@@ -326,7 +306,7 @@ ggplot(df_gender, aes(x = Year, y = Female_Ratio, group = 1)) +
   scale_y_continuous(labels = scales::percent_format(scale = 1), limits = c(20, 30)) +
   scale_x_continuous(breaks = seq(2009, 2023, by = 1)) +
   labs(
-    title = "Female Share of R&D Personnel in Turkey (2009–2023)",
+    title = "Female Share of R&D Personnel in Turkiye (2009–2023)",
     subtitle = "Proportion of female employees among all R&D personnel over time",
     x = "Year",
     y = "Female Share (%)"
@@ -340,7 +320,7 @@ ggplot(df_gender, aes(x = Year, y = Female_Ratio, group = 1)) +
   )
 ```
 
-Between 2009 and 2023, the ratio of female employees in the R&D sector in Turkey increased steadily. From 21.5% in 2009, the proportion of female employees increased to 27.8% by 2023. This increase shows that women's participation in R&D activities is strengthening and that there is a positive trend towards gender equality. However, the ratio is still below 30%, indicating that policies to increase the representation of women in R&D need to be sustained and further supported.
+Between 2009 and 2023, the ratio of female employees in the R&D sector in Turkiye increased steadily. From 21.5% in 2009, the proportion of female employees increased to 27.8% by 2023. This increase shows that women's participation in R&D activities is strengthening and that there is a positive trend towards gender equality. However, the ratio is still below 30%, indicating that policies to increase the representation of women in R&D need to be sustained and further supported.
 
 ## 3.1 Exploratory Data Analysis
 
@@ -401,16 +381,323 @@ The notable exception is the category “Other”. A negative correlation coeffi
 
 ## 3.2 Trend Analysis
 
-xxxxxx
+The relationship between the number of industrial enterprises and the employment of R&D personnel at different educational levels between 2009 and 2023 in Turkiye is analyzed. First of all, Pearson correlation analysis was used to determine the linear relationships between the number of industrial enterprises and the number of R&D personnel, and the direction, strength and statistical significance of these relationships were evaluated. According to the results obtained, it has been determined that the number of personnel at “Bachelor's Degree”, “Master's Degree”, “Associate Degree”, “Doctorate or Higher” and “High School” levels show highly positive and statistically significant relationships with the number of industrial enterprises.
+
+In line with these findings, simple linear regression analyses were conducted for these five education levels. With these analyses, the effect of the increase in the number of industrial enterprises on the number of R&D personnel at the relevant level was modeled and the significance and fitting power of the model were evaluated by calculating basic parameters such as slope coefficient, constant term, p-value, R² and F-statistic for each regression model. In addition, the trends are supported by graphs that visually present the regression lines and data points.
+
+```{r}
+# Gerekli kütüphaneler
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(patchwork)
+
+# Verileri oku
+enterprises <- read_excel("Sanayi-toplam girisim sayisi.xlsx")
+rd <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx")
+
+# Yıl tipini düzelt
+enterprises$Year <- as.integer(enterprises$Year)
+rd$Year <- as.integer(rd$Year)
+
+# 2009–2023 yılları filtrele
+enterprises <- enterprises %>% filter(Year >= 2009 & Year <= 2023)
+rd <- rd %>% filter(Year >= 2009 & Year <= 2023)
+
+# Eğitim düzeyine göre personel sayılarını özetle
+education_summary <- rd %>%
+  group_by(Year, `Education level`) %>%
+  summarise(Total = sum(Number, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = `Education level`, values_from = Total)
+
+# Girişim verisi ile birleştir
+df_regression <- left_join(education_summary, enterprises, by = "Year")
+
+# Eğitim düzeyleri
+education_levels <- c(
+  "Bachelor's Degree",
+  "Master's Degree",
+  "Associate Degree",
+  "Doctorate or Higher",
+  "High School"
+)
+
+for (level in education_levels) {
+  # Model kur
+  formula_text <- as.formula(paste0("`", level, "` ~ `Total Number of Enterprises`"))
+  model <- lm(formula_text, data = df_regression)
+  
+  # Sayısal özet
+  cat("\n\n========================================\n")
+  cat("Regression Summary for:", level, "\n")
+  cat("========================================\n")
+  summary_out <- summary(model)
+  cat("Intercept (β₀):", round(coef(model)[1], 2), "\n")
+  cat("Slope (β₁):", round(coef(model)[2], 5), "\n")
+  cat("R²:", round(summary_out$r.squared, 4), "\n")
+  cat("p-value (slope):", signif(summary_out$coefficients[2, 4], 4), "\n")
+  cat("F-statistic:", round(summary_out$fstatistic[1], 2), "\n")
+  
+  # Grafik
+  g <- ggplot(df_regression, aes_string(x = "`Total Number of Enterprises`", y = paste0("`", level, "`"))) +
+    geom_point(color = "#08306B", size = 3) +
+    geom_smooth(method = "lm", formula = y ~ x, se = TRUE, color = "#EF3B2C", linewidth = 1.2) +
+    scale_x_continuous(labels = comma) +
+    scale_y_continuous(labels = comma) +
+    labs(
+      title = paste("Regression Analysis:", level),
+      x = "Total Number of Enterprises",
+      y = "Number of R&D Personnel"
+    ) +
+    theme_minimal(base_size = 14) +
+    theme(
+      plot.title = element_text(face = "bold"),
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      panel.grid.minor = element_blank()
+    )
+  
+  print(g)
+}
+```
+
+### Model Summaries and Interpretation
+
+#### Bachelor's Degree
+
+-   **Model**: *Personnel = –233,577.20 + 0.07888 × Enterprises*
+-   **R² = 0.9917**, indicating that 99.17% of the variation is explained by the model.
+-   **p-value (slope) = 6.472e–15**, which confirms high statistical significance.
+-   **Interpretation**: For every 1,000 new enterprises, the number of bachelor-level R&D personnel increases by approximately 79 people.
+
+#### Master's Degree
+
+-   **Model**: *Personnel = –42,553.22 + 0.01573 × Enterprises*
+-   **R² = 0.9696**, showing a strong model fit.
+-   **p-value (slope) = 3.001e–11**
+-   **Interpretation**: A 1,000-unit increase in enterprises is associated with an increase of around 16 master's-level personnel.
+
+#### Associate Degree
+
+-   **Model**: *Personnel = –19,501.87 + 0.00782 × Enterprises*
+-   **R² = 0.9490**
+-   **p-value (slope) = 8.872e–10**
+-   **Interpretation**: The number of associate-level personnel shows a strong and significant increase in parallel with enterprise growth.
+
+#### Doctorate or Higher
+
+-   **Model**: *Personnel = –8,040.64 + 0.00302 × Enterprises*
+-   **R² = 0.9247**
+-   **p-value (slope) = 1.119e–08**
+-   **Interpretation**: An increase of 1,000 enterprises results in approximately 3 additional doctorate-level R&D personnel.
+
+#### High School
+
+-   **Model**: *Personnel = –6,685.04 + 0.00437 × Enterprises*
+-   **R² = 0.8888**
+-   **p-value (slope) = 1.441e–07**
+-   **Interpretation**: Although relatively lower than other education levels, the relationship remains positive and statistically significant.
+
+### General Assessment
+
+All models exhibit high R² values and statistically significant slope coefficients, indicating that the number of industrial enterprises is a strong predictor of R&D personnel employment across all education levels. The strongest relationships are observed at the bachelor’s and master’s levels, while the high school and doctorate levels also show substantial, though relatively smaller, effects. These findings emphasize that industrial growth drives the demand for qualified human capital in the R&D sector, highlighting the importance of aligning educational planning with industrial expansion.
 
 ## 3.3 Model Fitting
 
-xxxxxx
+### Multivariate Linear Regression Analysis
+
+This section presents multivariate linear regression models to estimate the number of doctorate-level R&D personnel in Turkiye between 2009 and 2023, using various explanatory variables such as total number of enterprises, gender distribution, and other education levels.
+
+#### Base Model: Enterprises + Gender
+
+```{r}
+library(readxl)
+library(dplyr)
+library(tidyr)
+
+# Dosyaları oku
+enterprises <- read_excel("Sanayi-toplam girisim sayisi.xlsx")
+rd <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx")
+
+# Yılları tam sayıya çevir
+enterprises$Year <- as.integer(enterprises$Year)
+rd$Year <- as.integer(rd$Year)
+
+# Yılları filtrele
+enterprises <- enterprises %>% filter(Year >= 2009 & Year <= 2023)
+rd <- rd %>% filter(Year >= 2009 & Year <= 2023)
+
+# Eğitim düzeyine göre pivotla
+education_data <- rd %>%
+  group_by(Year, `Education level`) %>%
+  summarise(Number = sum(Number, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = `Education level`, values_from = Number)
+
+# Cinsiyete göre pivotla
+gender_data <- rd %>%
+  group_by(Year, Gender) %>%
+  summarise(Number = sum(Number, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = Gender, values_from = Number)
+
+# Tüm veriyi birleştir
+veri_model <- enterprises %>%
+  left_join(education_data, by = "Year") %>%
+  left_join(gender_data, by = "Year") %>%
+  drop_na()
+
+```
+
+::: cell
+```{r}
+# Base model: Enterprises + Male + Female
+model_temel <- lm(`Doctorate or Higher` ~ `Total Number of Enterprises` + Male + Female, data = veri_model)
+summary(model_temel)
+```
+:::
+
+**Regression Equation:**
+
+$$
+\text{PhD} = 3428 - 0.00132 \cdot \text{Enterprises} + 0.0888 \cdot \text{Male} - 0.0779 \cdot \text{Female}
+$$
+
+**Interpretation of Coefficients:**
+
+| Variable | Coefficient ((\beta)) | p-value | Significance |
+|----|----|----|----|
+| Intercept | 3428 | 0.575 | Not significant |
+| Total Enterprises | -0.00132 | 0.508 | Not significant |
+| Male | +0.0888 | 0.076 | Marginally significant (p ≈ 0.0756) |
+| Female | -0.0779 | 0.0581 | Not significant |
+
+**Model Performance:**
+
+-   $R^2 = 0.9643$
+
+-   Adjusted $R^2 = 0.9545$
+
+-   F-statistic = 98.96, p \< 0.001
+
+-   Residual standard error = 323.6
+
+The multiple linear regression model is constructed to estimate the number of R&D personnel at doctoral level. The number of industrial enterprises, number of male and female personnel are used as explanatory variables in the model. The overall fit of the model is quite strong ($R^2 = 0.9643$) and most of the variance can be explained. However, when individual variables are analyzed, only the variable “number of male staff” is found to be borderline significant at the 10% significance level ($p = 0.0756$). This result may indicate a multicollinearity problem due to the inclusion of the number of men and women in the model together.
+
+#### Extended Model: Education Levels + Female Ratio
+
+This model is constructed to analyze how the number of R&D personnel at the PhD level is related to the number of industrial enterprises, the number of personnel at other levels of education and the share of women.
+
+::: cell
+```{r}
+veri_model <- veri_model %>%
+  mutate(Female_Ratio = Female / (Female + Male))
+
+# Extended model including education levels and female ratio
+model_genis <- lm(`Doctorate or Higher` ~ 
+                    `Total Number of Enterprises` +
+                    `Master's Degree` +
+                    `Bachelor's Degree` +
+                    `Associate Degree` +
+                    Other +
+                    Female_Ratio,
+                  data = veri_model)
+summary(model_genis)
+```
+:::
+
+**Regression Equation:**
+
+$$
+\text{PhD} = 8832 - 0.0036 \cdot \text{Enterprises} + 0.5107 \cdot \text{Master's} + 0.0339 \cdot \text{Bachelor's} - 0.6003 \cdot \text{Associate} + 0.0036 \cdot \text{Other} + 14014 \cdot \text{Female Ratio}
+$$
+
+**Interpretation of Coefficients:**
+
+| Variable          | Coefficient (β) | p-value | Significance                 |
+|-------------------|-----------------|---------|------------------------------|
+| Intercept         | 8,832           | 0.342   | Not significant              |
+| Enterprises       | –0.0036         | 0.0966  | Marginally significant (10%) |
+| Master's Degree   | +0.5107         | 0.0555  | Marginally significant (5%)  |
+| Bachelor's Degree | +0.0339         | 0.201   | Not significant              |
+| Associate Degree  | –0.6003         | 0.0768  | Marginally significant (10%) |
+| Other             | +0.0036         | 0.996   | Not significant              |
+| Female Ratio      | +14,014         | 0.504   | High effect size but NS      |
+
+**Model Performance:**
+
+-   $R^2 = 0.9849$
+-   Adjusted $R^2 = 0.9737$
+-   F-statistic = 87.23, p \< 0.001
+-   Residual standard error = 246.3
+
+This model analyzes the relationship between the number of PhD-level R&D personnel and entrepreneurship and personnel structure. The model has a high explanatory power with an R² value of 98.5%. While master's degree graduates have a positive and borderline significant effect, the effect of associate degree graduates is negative and borderline significant. Although the female ratio has a high effect coefficient, it is not statistically significant. This suggests that the interactions between education levels are determinant in the transition to doctoral level and that the gender effect is not direct.
+
+### Final Remarks
+
+Multivariate analysis confirms that PhD-level personnel are influenced more by internal structural factors such as the number of master's degree holders, rather than external macro indicators like the total number of enterprises. To improve interpretability, future models could apply variance inflation factor (VIF) analysis or dimensionality reduction techniques to mitigate multicollinearity effects.
 
 ## 3.4 Results
 
-xxxxxx
+Two different multiple linear regression models were constructed in the analysis:
+
+-   Model 1: Basic model where the number of PhD-level employees is explained by the number of industrial enterprises and gender (male/female) distribution.
+
+-   Model 2: Expanded model including education levels and the share of women.
+
+::: cell
+```{r}
+# Gerekli dönüşümler ve eksik veri temizliği
+veri_model <- veri_model %>%
+  mutate(Female_Ratio = Female / (Female + Male)) %>%
+  drop_na()
+
+# Temel model (Model 1)
+model_multi1 <- lm(`Doctorate or Higher` ~ `Total Number of Enterprises` + Female + Male, data = veri_model)
+
+# Genişletilmiş model (Model 2)
+model_multi2 <- lm(`Doctorate or Higher` ~ 
+                     `Total Number of Enterprises` +
+                     `Master's Degree` +
+                     `Bachelor's Degree` +
+                     `Associate Degree` +
+                     Other +
+                     Female_Ratio,
+                   data = veri_model)
+
+# Performans karşılaştırma
+summary(model_multi1)
+summary(model_multi2)
+
+# AIC değerlerini karşılaştır
+AIC(model_multi1, model_multi2)
+```
+:::
+
+| Model   | $R^2$  | Adjusted $R^2$ | AIC      | Description |
+|---------|--------|----------------|----------|-------------|
+| Model 1 | 0.9643 | 0.9545         | 221.3032 |             |
+| Model 2 | 0.9849 | 0.9737         | 214.3404 |             |
+
+: Comparison of Regression Model Performance
+
+As a result of the multiple linear regression analyses, it is observed that both models exhibit high performance in explaining the number of R&D personnel at doctoral level. Model 1 is based on the number of industrial enterprises and gender variables and stands out as a strong base model with an R² value above 96%. However, Model 2 includes additional structural variables such as variables related to education (bachelor's degree, master's degree, associate's degree, etc.) and the proportion of female employees; thus, it offers higher values in terms of both R² and Adjusted R², while also reaching a lower (i.e. more preferable) value in terms of the AIC criterion. This indicates that Model 2 is more explanatory not only because it includes more variables but also because these variables contribute significantly to the model.
+
+The lower AIC value of Model 2 reveals that the estimates are more reliable in terms of generalizability. These results suggest that the R&D staff structure at the PhD level should be evaluated not only with macro indicators such as the level of entrepreneurship or the total number of staff, but also with microstructural factors such as gender balance and education level. Therefore, it is recommended to prefer Model 2 in order to build more realistic, consistent and politically oriented models for strategic planning and decision-making processes.
 
 # 4. Results and Key Takeaways
 
-xxxxxx
+This study analyzed the distribution of R&D personnel working in the Turkish industrial sector according to their education levels using multiple linear regression models and revealed the determinants of the structure of PhD-level personnel. As a result of the comparison of two different models, the extended model (Model 2), which includes education-based variables and gender ratio, stands out with higher explanatory power and lower information loss. This suggests that R&D personnel should be considered not only with macro indicators (e.g. number of enterprises) but also with micro structural factors (e.g. education level, gender ratio).
+
+The model results show that especially master's degree graduates have a decisive effect on the transition to PhD level. It is also noteworthy that PhD-level employment may be higher in institutional structures with a higher proportion of women. In light of these analyses, it is necessary to increase R&D incentives at the doctoral level, develop interface policies to facilitate the integration of master's degree graduates into the industry, define norms for qualified R&D personnel per enterprise, and create structures to support the career transformation of bachelor's degree graduates.
+
+Overall, the findings suggest that the Turkish industry still relies on an undergraduate-based R&D workforce structure, but this structure has limitations in terms of technological breakthrough and high value-added production. In this context, policies aimed at both increasing the quality of human capital and strengthening the structural interaction between industry and academia are critical for building sustainable R&D capacity.
+
+# References
+
+-   Fox, J. (2015). *Applied regression analysis and generalized linear models* (3rd ed.). Sage Publications.
+
+-   Hair, J. F., Black, W. C., Babin, B. J., & Anderson, R. E. (2019). *Multivariate data analysis* (8th ed.). Cengage Learning.
+
+-   Kutner, M. H., Nachtsheim, C. J., Neter, J., & Li, W. (2005). *Applied linear statistical models* (5th ed.). McGraw-Hill/Irwin.
+
+-   Montgomery, D. C., Peck, E. A., & Vining, G. G. (2012). *Introduction to linear regression analysis* (5th ed.). Wiley.

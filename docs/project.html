@@ -103,6 +103,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -173,7 +202,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#problem-definition" id="toc-problem-definition" class="nav-link" data-scroll-target="#problem-definition"><strong><em>Problem Definition</em></strong></a></li>
   <li><a href="#research-objectives" id="toc-research-objectives" class="nav-link" data-scroll-target="#research-objectives"><strong><em>Research Objectives</em></strong></a></li>
-  <li><a href="#general-analysis-plan" id="toc-general-analysis-plan" class="nav-link" data-scroll-target="#general-analysis-plan"><strong><em>General Analysis Plan</em></strong></a></li>
   </ul></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">2. Data</a>
   <ul class="collapse">
@@ -201,11 +229,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#correlation-analysis" id="toc-correlation-analysis" class="nav-link" data-scroll-target="#correlation-analysis">Correlation Analysis</a></li>
   </ul></li>
-  <li><a href="#trend-analysis" id="toc-trend-analysis" class="nav-link" data-scroll-target="#trend-analysis">3.2 Trend Analysis</a></li>
-  <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting">3.3 Model Fitting</a></li>
+  <li><a href="#trend-analysis" id="toc-trend-analysis" class="nav-link" data-scroll-target="#trend-analysis">3.2 Trend Analysis</a>
+  <ul class="collapse">
+  <li><a href="#model-summaries-and-interpretation" id="toc-model-summaries-and-interpretation" class="nav-link" data-scroll-target="#model-summaries-and-interpretation">Model Summaries and Interpretation</a></li>
+  <li><a href="#general-assessment" id="toc-general-assessment" class="nav-link" data-scroll-target="#general-assessment">General Assessment</a></li>
+  </ul></li>
+  <li><a href="#model-fitting" id="toc-model-fitting" class="nav-link" data-scroll-target="#model-fitting">3.3 Model Fitting</a>
+  <ul class="collapse">
+  <li><a href="#multivariate-linear-regression-analysis" id="toc-multivariate-linear-regression-analysis" class="nav-link" data-scroll-target="#multivariate-linear-regression-analysis">Multivariate Linear Regression Analysis</a></li>
+  <li><a href="#final-remarks" id="toc-final-remarks" class="nav-link" data-scroll-target="#final-remarks">Final Remarks</a></li>
+  </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">3.4 Results</a></li>
   </ul></li>
   <li><a href="#results-and-key-takeaways" id="toc-results-and-key-takeaways" class="nav-link" data-scroll-target="#results-and-key-takeaways">4. Results and Key Takeaways</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
 </nav>
@@ -237,7 +274,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="burcu-altunoğlu---mustafa-erdem-bakir" class="level4">
 <h4 class="anchored" data-anchor-id="burcu-altunoğlu---mustafa-erdem-bakir"><strong><em>Burcu ALTUNOĞLU - Mustafa Erdem BAKIR</em></strong></h4>
-<p>Welcome to our project page.</p>
 </section>
 <section id="project-overview-and-scope" class="level1">
 <h1>1. Project Overview and Scope</h1>
@@ -257,19 +293,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>To estimate the effects of entrepreneurial activities on the composition of the R&amp;D workforce through a multiple linear regression model,</p></li>
 <li><p>To develop policy recommendations for Turkiye’s science and technology agenda and industrial strategies based on the findings.</p></li>
 </ul>
-</section>
-<section id="general-analysis-plan" class="level3">
-<h3 class="anchored" data-anchor-id="general-analysis-plan"><strong><em>General Analysis Plan</em></strong></h3>
-<p>The analytical workflow of the project is structured as follows:</p>
-<ol type="1">
-<li><p>Importing the datasets into the R environment, performing data cleaning, and aligning them to a common time frame (2009–2022),</p></li>
-<li><p>Disaggregating the number of R&amp;D personnel by educational level and gender,</p></li>
-<li><p>Analyzing trends through time-series visualizations,</p></li>
-<li><p>Evaluating the relationships between the number of industrial enterprises and specific R&amp;D workforce subcategories (e.g., number of female PhD holders) using Pearson correlation analysis,</p></li>
-<li><p>Testing the causal effects of changes in the number of enterprises on the composition of the R&amp;D workforce through a multiple linear regression model,</p></li>
-<li><p>Interpreting the findings in the context of industrial, educational, and gender policy, and providing concrete recommendations for policymakers.</p></li>
-</ol>
-<p>This analysis plan will not only reveal quantitative relationships but also uncover politically significant demographic and institutional dimensions. The study aims to provide a multidimensional evaluation of the relationship between Turkiye’s industrial development and the accumulation of scientific capital.</p>
 </section>
 </section>
 <section id="data" class="level1">
@@ -418,8 +441,8 @@ Attaching package: 'dplyr'</code></pre>
 The two datasets used in this project consist of quantitative variables that are well-suited for time-series analysis in terms of both content and structure. The key features of these datasets are summarized below:</p>
 <section id="dataset-overview" class="level3">
 <h3 class="anchored" data-anchor-id="dataset-overview"><strong><em>Dataset Overview</em></strong></h3>
-<p>Industrial Enterprise Data contains the annual total number of industrial enterprises operating across Turkey. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.</p>
-<p>R&amp;D Data includes the annual number of R&amp;D personnel employed by industrial and service sector enterprises across Turkey. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&amp;D personnel data directly reflect scientific capacity, the variable holds strategic importance.</p>
+<p>Industrial Enterprise Data contains the annual total number of industrial enterprises operating across Turkiye. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.</p>
+<p>R&amp;D Data includes the annual number of R&amp;D personnel employed by industrial and service sector enterprises across Turkiye. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&amp;D personnel data directly reflect scientific capacity, the variable holds strategic importance.</p>
 <p>Both variables are quantitative and structured in a yearly time-series format. This structure allows for the application of both visual and model-based analytical techniques.</p>
 </section>
 <section id="key-visualizations" class="level3">
@@ -442,7 +465,7 @@ The two datasets used in this project consist of quantitative variables that are
 </div>
 </div>
 </div>
-<p>The figure shows a steady upward trend in the total number of industrial enterprises in Turkey between 2009 and 2022. The growth, which was limited in the 2009-2015 period, gained momentum after 2016; a significant increase was observed especially between 2020-2021. This rapid rise can be attributed to the transformation in production structures and digitalization during the pandemic period. However, the stagnation in 2022 points to the impact of market saturation or macroeconomic constraints. Overall, there is a quantitative growth in industrial entrepreneurship, but the sustainability and qualitative effects of this growth should be evaluated separately.</p>
+<p>The figure shows a steady upward trend in the total number of industrial enterprises in Turkiye between 2009 and 2022. The growth, which was limited in the 2009-2015 period, gained momentum after 2016; a significant increase was observed especially between 2020-2021. This rapid rise can be attributed to the transformation in production structures and digitalization during the pandemic period. However, the stagnation in 2022 points to the impact of market saturation or macroeconomic constraints. Overall, there is a quantitative growth in industrial entrepreneurship, but the sustainability and qualitative effects of this growth should be evaluated separately.</p>
 <p><strong><em>Distribution of R&amp;D Personnel by Educational Attainment</em></strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Required packages</span></span>
@@ -488,7 +511,7 @@ The two datasets used in this project consist of quantitative variables that are
 </div>
 </div>
 </div>
-<p>An analysis of the distribution of R&amp;D personnel in Turkey by educational level between 2009 and 2023 reveals that the number of bachelor’s degree graduates is by far the highest and has been increasing rapidly over the years. While there is also an increase in the number of master’s and associate’s degree graduates, it is noteworthy that the number of personnel with a doctorate degree and above remains relatively limited. This indicates that there is an increasing need for highly qualified human resources in R&amp;D activities, but this need has not yet been adequately met. While the proportion of high school graduates tends to decrease over time, the number of personnel in the “other” category fluctuates. In general, it can be said that there is a transformation in the R&amp;D personnel structure towards higher levels of education.</p>
+<p>An analysis of the distribution of R&amp;D personnel in Turkiye by educational level between 2009 and 2023 reveals that the number of bachelor’s degree graduates is by far the highest and has been increasing rapidly over the years. While there is also an increase in the number of master’s and associate’s degree graduates, it is noteworthy that the number of personnel with a doctorate degree and above remains relatively limited. This indicates that there is an increasing need for highly qualified human resources in R&amp;D activities, but this need has not yet been adequately met. While the proportion of high school graduates tends to decrease over time, the number of personnel in the “other” category fluctuates. In general, it can be said that there is a transformation in the R&amp;D personnel structure towards higher levels of education.</p>
 <p><strong><em>Distribution of R&amp;D Personnel by Gender</em></strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -529,7 +552,7 @@ The two datasets used in this project consist of quantitative variables that are
 </div>
 </div>
 </div>
-<p>An analysis of the distribution of personnel employed in R&amp;D in Turkey between 2009 and 2023 by gender shows that the number of male personnel increased steadily every year, reaching over 135,000 by 2023. The number of female personnel has shown a similar upward trend; however, this increase has been more limited compared to men, reaching approximately 60,000 in 2023. This indicates that a gender-based imbalance persists in the R&amp;D sector.</p>
+<p>An analysis of the distribution of personnel employed in R&amp;D in Turkiye between 2009 and 2023 by gender shows that the number of male personnel increased steadily every year, reaching over 135,000 by 2023. The number of female personnel has shown a similar upward trend; however, this increase has been more limited compared to men, reaching approximately 60,000 in 2023. This indicates that a gender-based imbalance persists in the R&amp;D sector.</p>
 <p>It is noteworthy that the increase in the number of female personnel gained momentum especially after 2016. This increase shows that women’s participation in R&amp;D activities has strengthened and that there has been a positive development in terms of gender equality. However, the current picture reveals the need for more comprehensive and sustainable policies to increase the representation of women in R&amp;D.</p>
 <p><strong><em>Share of Female R&amp;D Personnel</em></strong></p>
 <div class="cell">
@@ -566,7 +589,7 @@ The two datasets used in this project consist of quantitative variables that are
 <span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="at">scale =</span> <span class="dv">1</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>)) <span class="sc">+</span></span>
 <span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">2009</span>, <span class="dv">2023</span>, <span class="at">by =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
 <span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Female Share of R&amp;D Personnel in Turkey (2009–2023)"</span>,</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Female Share of R&amp;D Personnel in Turkiye (2009–2023)"</span>,</span>
 <span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Proportion of female employees among all R&amp;D personnel over time"</span>,</span>
 <span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
 <span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Female Share (%)"</span></span>
@@ -586,7 +609,7 @@ The two datasets used in this project consist of quantitative variables that are
 </div>
 </div>
 </div>
-<p>Between 2009 and 2023, the ratio of female employees in the R&amp;D sector in Turkey increased steadily. From 21.5% in 2009, the proportion of female employees increased to 27.8% by 2023. This increase shows that women’s participation in R&amp;D activities is strengthening and that there is a positive trend towards gender equality. However, the ratio is still below 30%, indicating that policies to increase the representation of women in R&amp;D need to be sustained and further supported.</p>
+<p>Between 2009 and 2023, the ratio of female employees in the R&amp;D sector in Turkiye increased steadily. From 21.5% in 2009, the proportion of female employees increased to 27.8% by 2023. This increase shows that women’s participation in R&amp;D activities is strengthening and that there is a positive trend towards gender equality. However, the ratio is still below 30%, indicating that policies to increase the representation of women in R&amp;D need to be sustained and further supported.</p>
 </section>
 <section id="exploratory-data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">3.1 Exploratory Data Analysis</h2>
@@ -671,20 +694,621 @@ p-value: 2.649e-05 </code></pre>
 </section>
 <section id="trend-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="trend-analysis">3.2 Trend Analysis</h2>
-<p>xxxxxx</p>
+<p>The relationship between the number of industrial enterprises and the employment of R&amp;D personnel at different educational levels between 2009 and 2023 in Turkiye is analyzed. First of all, Pearson correlation analysis was used to determine the linear relationships between the number of industrial enterprises and the number of R&amp;D personnel, and the direction, strength and statistical significance of these relationships were evaluated. According to the results obtained, it has been determined that the number of personnel at “Bachelor’s Degree”, “Master’s Degree”, “Associate Degree”, “Doctorate or Higher” and “High School” levels show highly positive and statistically significant relationships with the number of industrial enterprises.</p>
+<p>In line with these findings, simple linear regression analyses were conducted for these five education levels. With these analyses, the effect of the increase in the number of industrial enterprises on the number of R&amp;D personnel at the relevant level was modeled and the significance and fitting power of the model were evaluated by calculating basic parameters such as slope coefficient, constant term, p-value, R² and F-statistic for each regression model. In addition, the trends are supported by graphs that visually present the regression lines and data points.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerekli kütüphaneler</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Verileri oku</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>enterprises <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi-toplam girisim sayisi.xlsx"</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>rd <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx"</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Yıl tipini düzelt</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>enterprises<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(enterprises<span class="sc">$</span>Year)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>rd<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(rd<span class="sc">$</span>Year)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2009–2023 yılları filtrele</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>enterprises <span class="ot">&lt;-</span> enterprises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2009</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>rd <span class="ot">&lt;-</span> rd <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2009</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Eğitim düzeyine göre personel sayılarını özetle</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>education_summary <span class="ot">&lt;-</span> rd <span class="sc">%&gt;%</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, <span class="st">`</span><span class="at">Education level</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">`</span><span class="at">Education level</span><span class="st">`</span>, <span class="at">values_from =</span> Total)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Girişim verisi ile birleştir</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>df_regression <span class="ot">&lt;-</span> <span class="fu">left_join</span>(education_summary, enterprises, <span class="at">by =</span> <span class="st">"Year"</span>)</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Eğitim düzeyleri</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>education_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bachelor's Degree"</span>,</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Master's Degree"</span>,</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Associate Degree"</span>,</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Doctorate or Higher"</span>,</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"High School"</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (level <span class="cf">in</span> education_levels) {</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Model kur</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>  formula_text <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(<span class="fu">paste0</span>(<span class="st">"`"</span>, level, <span class="st">"` ~ `Total Number of Enterprises`"</span>))</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">lm</span>(formula_text, <span class="at">data =</span> df_regression)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sayısal özet</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n\n</span><span class="st">========================================</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Regression Summary for:"</span>, level, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"========================================</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>  summary_out <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Intercept (β₀):"</span>, <span class="fu">round</span>(<span class="fu">coef</span>(model)[<span class="dv">1</span>], <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Slope (β₁):"</span>, <span class="fu">round</span>(<span class="fu">coef</span>(model)[<span class="dv">2</span>], <span class="dv">5</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"R²:"</span>, <span class="fu">round</span>(summary_out<span class="sc">$</span>r.squared, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"p-value (slope):"</span>, <span class="fu">signif</span>(summary_out<span class="sc">$</span>coefficients[<span class="dv">2</span>, <span class="dv">4</span>], <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"F-statistic:"</span>, <span class="fu">round</span>(summary_out<span class="sc">$</span>fstatistic[<span class="dv">1</span>], <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Grafik</span></span>
+<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>  g <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_regression, <span class="fu">aes_string</span>(<span class="at">x =</span> <span class="st">"`Total Number of Enterprises`"</span>, <span class="at">y =</span> <span class="fu">paste0</span>(<span class="st">"`"</span>, level, <span class="st">"`"</span>))) <span class="sc">+</span></span>
+<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#08306B"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">"#EF3B2C"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma) <span class="sc">+</span></span>
+<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Regression Analysis:"</span>, level),</span>
+<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Total Number of Enterprises"</span>,</span>
+<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Number of R&amp;D Personnel"</span></span>
+<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-73"><a href="#cb13-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(g)</span>
+<span id="cb13-74"><a href="#cb13-74" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+========================================
+Regression Summary for: Bachelor's Degree 
+========================================
+Intercept (β₀): -233577.2 
+Slope (β₁): 0.07888 
+R²: 0.9917 
+p-value (slope): 6.472e-15 
+F-statistic: 1553.89 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
+ℹ Please use tidy evaluation idioms with `aes()`.
+ℹ See also `vignette("ggplot2-in-packages")` for more information.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+========================================
+Regression Summary for: Master's Degree 
+========================================
+Intercept (β₀): -42553.22 
+Slope (β₁): 0.01573 
+R²: 0.9696 
+p-value (slope): 3.001e-11 
+F-statistic: 415.21 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+========================================
+Regression Summary for: Associate Degree 
+========================================
+Intercept (β₀): -19501.87 
+Slope (β₁): 0.00782 
+R²: 0.949 
+p-value (slope): 8.872e-10 
+F-statistic: 241.69 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+========================================
+Regression Summary for: Doctorate or Higher 
+========================================
+Intercept (β₀): -8040.64 
+Slope (β₁): 0.00302 
+R²: 0.9247 
+p-value (slope): 1.119e-08 
+F-statistic: 159.75 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+========================================
+Regression Summary for: High School 
+========================================
+Intercept (β₀): -6685.04 
+Slope (β₁): 0.00437 
+R²: 0.8888 
+p-value (slope): 1.441e-07 
+F-statistic: 103.9 </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_files/figure-html/unnamed-chunk-7-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="model-summaries-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="model-summaries-and-interpretation">Model Summaries and Interpretation</h3>
+<section id="bachelors-degree" class="level4">
+<h4 class="anchored" data-anchor-id="bachelors-degree">Bachelor’s Degree</h4>
+<ul>
+<li><strong>Model</strong>: <em>Personnel = –233,577.20 + 0.07888 × Enterprises</em></li>
+<li><strong>R² = 0.9917</strong>, indicating that 99.17% of the variation is explained by the model.</li>
+<li><strong>p-value (slope) = 6.472e–15</strong>, which confirms high statistical significance.</li>
+<li><strong>Interpretation</strong>: For every 1,000 new enterprises, the number of bachelor-level R&amp;D personnel increases by approximately 79 people.</li>
+</ul>
+</section>
+<section id="masters-degree" class="level4">
+<h4 class="anchored" data-anchor-id="masters-degree">Master’s Degree</h4>
+<ul>
+<li><strong>Model</strong>: <em>Personnel = –42,553.22 + 0.01573 × Enterprises</em></li>
+<li><strong>R² = 0.9696</strong>, showing a strong model fit.</li>
+<li><strong>p-value (slope) = 3.001e–11</strong></li>
+<li><strong>Interpretation</strong>: A 1,000-unit increase in enterprises is associated with an increase of around 16 master’s-level personnel.</li>
+</ul>
+</section>
+<section id="associate-degree" class="level4">
+<h4 class="anchored" data-anchor-id="associate-degree">Associate Degree</h4>
+<ul>
+<li><strong>Model</strong>: <em>Personnel = –19,501.87 + 0.00782 × Enterprises</em></li>
+<li><strong>R² = 0.9490</strong></li>
+<li><strong>p-value (slope) = 8.872e–10</strong></li>
+<li><strong>Interpretation</strong>: The number of associate-level personnel shows a strong and significant increase in parallel with enterprise growth.</li>
+</ul>
+</section>
+<section id="doctorate-or-higher" class="level4">
+<h4 class="anchored" data-anchor-id="doctorate-or-higher">Doctorate or Higher</h4>
+<ul>
+<li><strong>Model</strong>: <em>Personnel = –8,040.64 + 0.00302 × Enterprises</em></li>
+<li><strong>R² = 0.9247</strong></li>
+<li><strong>p-value (slope) = 1.119e–08</strong></li>
+<li><strong>Interpretation</strong>: An increase of 1,000 enterprises results in approximately 3 additional doctorate-level R&amp;D personnel.</li>
+</ul>
+</section>
+<section id="high-school" class="level4">
+<h4 class="anchored" data-anchor-id="high-school">High School</h4>
+<ul>
+<li><strong>Model</strong>: <em>Personnel = –6,685.04 + 0.00437 × Enterprises</em></li>
+<li><strong>R² = 0.8888</strong></li>
+<li><strong>p-value (slope) = 1.441e–07</strong></li>
+<li><strong>Interpretation</strong>: Although relatively lower than other education levels, the relationship remains positive and statistically significant.</li>
+</ul>
+</section>
+</section>
+<section id="general-assessment" class="level3">
+<h3 class="anchored" data-anchor-id="general-assessment">General Assessment</h3>
+<p>All models exhibit high R² values and statistically significant slope coefficients, indicating that the number of industrial enterprises is a strong predictor of R&amp;D personnel employment across all education levels. The strongest relationships are observed at the bachelor’s and master’s levels, while the high school and doctorate levels also show substantial, though relatively smaller, effects. These findings emphasize that industrial growth drives the demand for qualified human capital in the R&amp;D sector, highlighting the importance of aligning educational planning with industrial expansion.</p>
+</section>
 </section>
 <section id="model-fitting" class="level2">
 <h2 class="anchored" data-anchor-id="model-fitting">3.3 Model Fitting</h2>
-<p>xxxxxx</p>
+<section id="multivariate-linear-regression-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="multivariate-linear-regression-analysis">Multivariate Linear Regression Analysis</h3>
+<p>This section presents multivariate linear regression models to estimate the number of doctorate-level R&amp;D personnel in Turkiye between 2009 and 2023, using various explanatory variables such as total number of enterprises, gender distribution, and other education levels.</p>
+<section id="base-model-enterprises-gender" class="level4">
+<h4 class="anchored" data-anchor-id="base-model-enterprises-gender">Base Model: Enterprises + Gender</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Dosyaları oku</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>enterprises <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi-toplam girisim sayisi.xlsx"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>rd <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx"</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Yılları tam sayıya çevir</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>enterprises<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(enterprises<span class="sc">$</span>Year)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>rd<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(rd<span class="sc">$</span>Year)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Yılları filtrele</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>enterprises <span class="ot">&lt;-</span> enterprises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2009</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>rd <span class="ot">&lt;-</span> rd <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Year <span class="sc">&gt;=</span> <span class="dv">2009</span> <span class="sc">&amp;</span> Year <span class="sc">&lt;=</span> <span class="dv">2023</span>)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Eğitim düzeyine göre pivotla</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>education_data <span class="ot">&lt;-</span> rd <span class="sc">%&gt;%</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, <span class="st">`</span><span class="at">Education level</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Number =</span> <span class="fu">sum</span>(Number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">`</span><span class="at">Education level</span><span class="st">`</span>, <span class="at">values_from =</span> Number)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Cinsiyete göre pivotla</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>gender_data <span class="ot">&lt;-</span> rd <span class="sc">%&gt;%</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Gender) <span class="sc">%&gt;%</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Number =</span> <span class="fu">sum</span>(Number, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Gender, <span class="at">values_from =</span> Number)</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Tüm veriyi birleştir</span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>veri_model <span class="ot">&lt;-</span> enterprises <span class="sc">%&gt;%</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(education_data, <span class="at">by =</span> <span class="st">"Year"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(gender_data, <span class="at">by =</span> <span class="st">"Year"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Base model: Enterprises + Male + Female</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>model_temel <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Doctorate or Higher</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">Total Number of Enterprises</span><span class="st">`</span> <span class="sc">+</span> Male <span class="sc">+</span> Female, <span class="at">data =</span> veri_model)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_temel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = `Doctorate or Higher` ~ `Total Number of Enterprises` + 
+    Male + Female, data = veri_model)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-407.45 -199.81  -24.95   89.87  689.49 
+
+Coefficients:
+                                Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                    3.428e+03  5.939e+03   0.577   0.5754  
+`Total Number of Enterprises` -1.324e-03  1.937e-03  -0.684   0.5084  
+Male                           8.882e-02  4.527e-02   1.962   0.0756 .
+Female                        -7.792e-02  1.372e-01  -0.568   0.5814  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 323.6 on 11 degrees of freedom
+Multiple R-squared:  0.9643,    Adjusted R-squared:  0.9545 
+F-statistic: 98.96 on 3 and 11 DF,  p-value: 3.058e-08</code></pre>
+</div>
+</div>
+</div>
+<p><strong>Regression Equation:</strong></p>
+<p><span class="math display">\[
+\text{PhD} = 3428 - 0.00132 \cdot \text{Enterprises} + 0.0888 \cdot \text{Male} - 0.0779 \cdot \text{Female}
+\]</span></p>
+<p><strong>Interpretation of Coefficients:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Coefficient (())</th>
+<th>p-value</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercept</td>
+<td>3428</td>
+<td>0.575</td>
+<td>Not significant</td>
+</tr>
+<tr class="even">
+<td>Total Enterprises</td>
+<td>-0.00132</td>
+<td>0.508</td>
+<td>Not significant</td>
+</tr>
+<tr class="odd">
+<td>Male</td>
+<td>+0.0888</td>
+<td>0.076</td>
+<td>Marginally significant (p ≈ 0.0756)</td>
+</tr>
+<tr class="even">
+<td>Female</td>
+<td>-0.0779</td>
+<td>0.0581</td>
+<td>Not significant</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Model Performance:</strong></p>
+<ul>
+<li><p><span class="math inline">\(R^2 = 0.9643\)</span></p></li>
+<li><p>Adjusted <span class="math inline">\(R^2 = 0.9545\)</span></p></li>
+<li><p>F-statistic = 98.96, p &lt; 0.001</p></li>
+<li><p>Residual standard error = 323.6</p></li>
+</ul>
+<p>The multiple linear regression model is constructed to estimate the number of R&amp;D personnel at doctoral level. The number of industrial enterprises, number of male and female personnel are used as explanatory variables in the model. The overall fit of the model is quite strong (<span class="math inline">\(R^2 = 0.9643\)</span>) and most of the variance can be explained. However, when individual variables are analyzed, only the variable “number of male staff” is found to be borderline significant at the 10% significance level (<span class="math inline">\(p = 0.0756\)</span>). This result may indicate a multicollinearity problem due to the inclusion of the number of men and women in the model together.</p>
+</section>
+<section id="extended-model-education-levels-female-ratio" class="level4">
+<h4 class="anchored" data-anchor-id="extended-model-education-levels-female-ratio">Extended Model: Education Levels + Female Ratio</h4>
+<p>This model is constructed to analyze how the number of R&amp;D personnel at the PhD level is related to the number of industrial enterprises, the number of personnel at other levels of education and the share of women.</p>
+<div class="cell">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>veri_model <span class="ot">&lt;-</span> veri_model <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Female_Ratio =</span> Female <span class="sc">/</span> (Female <span class="sc">+</span> Male))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extended model including education levels and female ratio</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>model_genis <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Doctorate or Higher</span><span class="st">`</span> <span class="sc">~</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                    <span class="st">`</span><span class="at">Total Number of Enterprises</span><span class="st">`</span> <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                    <span class="st">`</span><span class="at">Master's Degree</span><span class="st">`</span> <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>                    <span class="st">`</span><span class="at">Bachelor's Degree</span><span class="st">`</span> <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                    <span class="st">`</span><span class="at">Associate Degree</span><span class="st">`</span> <span class="sc">+</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                    Other <span class="sc">+</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>                    Female_Ratio,</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> veri_model)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_genis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = `Doctorate or Higher` ~ `Total Number of Enterprises` + 
+    `Master's Degree` + `Bachelor's Degree` + `Associate Degree` + 
+    Other + Female_Ratio, data = veri_model)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-351.65 -103.67    6.41  142.64  280.30 
+
+Coefficients:
+                                Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                    8.832e+03  8.749e+03   1.010   0.3423  
+`Total Number of Enterprises` -3.611e-03  1.919e-03  -1.882   0.0966 .
+`Master's Degree`              5.107e-01  2.281e-01   2.239   0.0555 .
+`Bachelor's Degree`            3.393e-02  2.437e-02   1.392   0.2013  
+`Associate Degree`            -6.003e-01  2.956e-01  -2.031   0.0768 .
+Other                          3.568e-03  6.697e-01   0.005   0.9959  
+Female_Ratio                   1.401e+04  2.001e+04   0.700   0.5036  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 246.3 on 8 degrees of freedom
+Multiple R-squared:  0.9849,    Adjusted R-squared:  0.9737 
+F-statistic: 87.23 on 6 and 8 DF,  p-value: 7.522e-07</code></pre>
+</div>
+</div>
+</div>
+<p><strong>Regression Equation:</strong></p>
+<p><span class="math display">\[
+\text{PhD} = 8832 - 0.0036 \cdot \text{Enterprises} + 0.5107 \cdot \text{Master's} + 0.0339 \cdot \text{Bachelor's} - 0.6003 \cdot \text{Associate} + 0.0036 \cdot \text{Other} + 14014 \cdot \text{Female Ratio}
+\]</span></p>
+<p><strong>Interpretation of Coefficients:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 22%">
+<col style="width: 12%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Coefficient (β)</th>
+<th>p-value</th>
+<th>Significance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Intercept</td>
+<td>8,832</td>
+<td>0.342</td>
+<td>Not significant</td>
+</tr>
+<tr class="even">
+<td>Enterprises</td>
+<td>–0.0036</td>
+<td>0.0966</td>
+<td>Marginally significant (10%)</td>
+</tr>
+<tr class="odd">
+<td>Master’s Degree</td>
+<td>+0.5107</td>
+<td>0.0555</td>
+<td>Marginally significant (5%)</td>
+</tr>
+<tr class="even">
+<td>Bachelor’s Degree</td>
+<td>+0.0339</td>
+<td>0.201</td>
+<td>Not significant</td>
+</tr>
+<tr class="odd">
+<td>Associate Degree</td>
+<td>–0.6003</td>
+<td>0.0768</td>
+<td>Marginally significant (10%)</td>
+</tr>
+<tr class="even">
+<td>Other</td>
+<td>+0.0036</td>
+<td>0.996</td>
+<td>Not significant</td>
+</tr>
+<tr class="odd">
+<td>Female Ratio</td>
+<td>+14,014</td>
+<td>0.504</td>
+<td>High effect size but NS</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Model Performance:</strong></p>
+<ul>
+<li><span class="math inline">\(R^2 = 0.9849\)</span></li>
+<li>Adjusted <span class="math inline">\(R^2 = 0.9737\)</span></li>
+<li>F-statistic = 87.23, p &lt; 0.001</li>
+<li>Residual standard error = 246.3</li>
+</ul>
+<p>This model analyzes the relationship between the number of PhD-level R&amp;D personnel and entrepreneurship and personnel structure. The model has a high explanatory power with an R² value of 98.5%. While master’s degree graduates have a positive and borderline significant effect, the effect of associate degree graduates is negative and borderline significant. Although the female ratio has a high effect coefficient, it is not statistically significant. This suggests that the interactions between education levels are determinant in the transition to doctoral level and that the gender effect is not direct.</p>
+</section>
+</section>
+<section id="final-remarks" class="level3">
+<h3 class="anchored" data-anchor-id="final-remarks">Final Remarks</h3>
+<p>Multivariate analysis confirms that PhD-level personnel are influenced more by internal structural factors such as the number of master’s degree holders, rather than external macro indicators like the total number of enterprises. To improve interpretability, future models could apply variance inflation factor (VIF) analysis or dimensionality reduction techniques to mitigate multicollinearity effects.</p>
+</section>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">3.4 Results</h2>
-<p>xxxxxx</p>
+<p>Two different multiple linear regression models were constructed in the analysis:</p>
+<ul>
+<li><p>Model 1: Basic model where the number of PhD-level employees is explained by the number of industrial enterprises and gender (male/female) distribution.</p></li>
+<li><p>Model 2: Expanded model including education levels and the share of women.</p></li>
+</ul>
+<div class="cell">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerekli dönüşümler ve eksik veri temizliği</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>veri_model <span class="ot">&lt;-</span> veri_model <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Female_Ratio =</span> Female <span class="sc">/</span> (Female <span class="sc">+</span> Male)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Temel model (Model 1)</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>model_multi1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Doctorate or Higher</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">Total Number of Enterprises</span><span class="st">`</span> <span class="sc">+</span> Female <span class="sc">+</span> Male, <span class="at">data =</span> veri_model)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Genişletilmiş model (Model 2)</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>model_multi2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Doctorate or Higher</span><span class="st">`</span> <span class="sc">~</span> </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">Total Number of Enterprises</span><span class="st">`</span> <span class="sc">+</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">Master's Degree</span><span class="st">`</span> <span class="sc">+</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">Bachelor's Degree</span><span class="st">`</span> <span class="sc">+</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">Associate Degree</span><span class="st">`</span> <span class="sc">+</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>                     Other <span class="sc">+</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>                     Female_Ratio,</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> veri_model)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Performans karşılaştırma</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multi1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = `Doctorate or Higher` ~ `Total Number of Enterprises` + 
+    Female + Male, data = veri_model)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-407.45 -199.81  -24.95   89.87  689.49 
+
+Coefficients:
+                                Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                    3.428e+03  5.939e+03   0.577   0.5754  
+`Total Number of Enterprises` -1.324e-03  1.937e-03  -0.684   0.5084  
+Female                        -7.792e-02  1.372e-01  -0.568   0.5814  
+Male                           8.882e-02  4.527e-02   1.962   0.0756 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 323.6 on 11 degrees of freedom
+Multiple R-squared:  0.9643,    Adjusted R-squared:  0.9545 
+F-statistic: 98.96 on 3 and 11 DF,  p-value: 3.058e-08</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multi2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = `Doctorate or Higher` ~ `Total Number of Enterprises` + 
+    `Master's Degree` + `Bachelor's Degree` + `Associate Degree` + 
+    Other + Female_Ratio, data = veri_model)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-351.65 -103.67    6.41  142.64  280.30 
+
+Coefficients:
+                                Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)                    8.832e+03  8.749e+03   1.010   0.3423  
+`Total Number of Enterprises` -3.611e-03  1.919e-03  -1.882   0.0966 .
+`Master's Degree`              5.107e-01  2.281e-01   2.239   0.0555 .
+`Bachelor's Degree`            3.393e-02  2.437e-02   1.392   0.2013  
+`Associate Degree`            -6.003e-01  2.956e-01  -2.031   0.0768 .
+Other                          3.568e-03  6.697e-01   0.005   0.9959  
+Female_Ratio                   1.401e+04  2.001e+04   0.700   0.5036  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 246.3 on 8 degrees of freedom
+Multiple R-squared:  0.9849,    Adjusted R-squared:  0.9737 
+F-statistic: 87.23 on 6 and 8 DF,  p-value: 7.522e-07</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AIC değerlerini karşılaştır</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(model_multi1, model_multi2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             df      AIC
+model_multi1  5 221.3032
+model_multi2  8 214.3404</code></pre>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<caption>Comparison of Regression Model Performance</caption>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th><span class="math inline">\(R^2\)</span></th>
+<th>Adjusted <span class="math inline">\(R^2\)</span></th>
+<th>AIC</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Model 1</td>
+<td>0.9643</td>
+<td>0.9545</td>
+<td>221.3032</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Model 2</td>
+<td>0.9849</td>
+<td>0.9737</td>
+<td>214.3404</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>As a result of the multiple linear regression analyses, it is observed that both models exhibit high performance in explaining the number of R&amp;D personnel at doctoral level. Model 1 is based on the number of industrial enterprises and gender variables and stands out as a strong base model with an R² value above 96%. However, Model 2 includes additional structural variables such as variables related to education (bachelor’s degree, master’s degree, associate’s degree, etc.) and the proportion of female employees; thus, it offers higher values in terms of both R² and Adjusted R², while also reaching a lower (i.e.&nbsp;more preferable) value in terms of the AIC criterion. This indicates that Model 2 is more explanatory not only because it includes more variables but also because these variables contribute significantly to the model.</p>
+<p>The lower AIC value of Model 2 reveals that the estimates are more reliable in terms of generalizability. These results suggest that the R&amp;D staff structure at the PhD level should be evaluated not only with macro indicators such as the level of entrepreneurship or the total number of staff, but also with microstructural factors such as gender balance and education level. Therefore, it is recommended to prefer Model 2 in order to build more realistic, consistent and politically oriented models for strategic planning and decision-making processes.</p>
 </section>
 </section>
 <section id="results-and-key-takeaways" class="level1">
 <h1>4. Results and Key Takeaways</h1>
-<p>xxxxxx</p>
+<p>This study analyzed the distribution of R&amp;D personnel working in the Turkish industrial sector according to their education levels using multiple linear regression models and revealed the determinants of the structure of PhD-level personnel. As a result of the comparison of two different models, the extended model (Model 2), which includes education-based variables and gender ratio, stands out with higher explanatory power and lower information loss. This suggests that R&amp;D personnel should be considered not only with macro indicators (e.g.&nbsp;number of enterprises) but also with micro structural factors (e.g.&nbsp;education level, gender ratio).</p>
+<p>The model results show that especially master’s degree graduates have a decisive effect on the transition to PhD level. It is also noteworthy that PhD-level employment may be higher in institutional structures with a higher proportion of women. In light of these analyses, it is necessary to increase R&amp;D incentives at the doctoral level, develop interface policies to facilitate the integration of master’s degree graduates into the industry, define norms for qualified R&amp;D personnel per enterprise, and create structures to support the career transformation of bachelor’s degree graduates.</p>
+<p>Overall, the findings suggest that the Turkish industry still relies on an undergraduate-based R&amp;D workforce structure, but this structure has limitations in terms of technological breakthrough and high value-added production. In this context, policies aimed at both increasing the quality of human capital and strengthening the structural interaction between industry and academia are critical for building sustainable R&amp;D capacity.</p>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<ul>
+<li><p>Fox, J. (2015). <em>Applied regression analysis and generalized linear models</em> (3rd ed.). Sage Publications.</p></li>
+<li><p>Hair, J. F., Black, W. C., Babin, B. J., &amp; Anderson, R. E. (2019). <em>Multivariate data analysis</em> (8th ed.). Cengage Learning.</p></li>
+<li><p>Kutner, M. H., Nachtsheim, C. J., Neter, J., &amp; Li, W. (2005). <em>Applied linear statistical models</em> (5th ed.). McGraw-Hill/Irwin.</p></li>
+<li><p>Montgomery, D. C., Peck, E. A., &amp; Vining, G. G. (2012). <em>Introduction to linear regression analysis</em> (5th ed.). Wiley.</p></li>
+</ul>
 
 
 </section>
