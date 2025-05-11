@@ -118,10 +118,10 @@ library(readxl)
 library(dplyr)
 library(tidyr)
 # Girişim verisinin okunması
-girisim_data <- read_excel(file.choose(), sheet = "report2", skip = 0)
+girisim_data <- read_excel("Sanayi-toplam girisim sayisi.xlsx", sheet = "report2", skip = 0)
 View(girisim_data)
 # Ar-Ge verisinin okunması
-arge_data <- read_excel(file.choose(), sheet = "Sheet0", skip = 0)
+arge_data <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx", sheet = "Sheet0", skip = 0)
 View(arge_data)
 # Eğitim düzeyine göre personel verisinin ayrıştırılması
 library(stringr)
@@ -180,39 +180,219 @@ With this structure, the project will enable a detailed statistical investigatio
 \
 The two datasets used in this project consist of quantitative variables that are well-suited for time-series analysis in terms of both content and structure. The key features of these datasets are summarized below:
 
-***Industrial Enterprise Data***
+### ***Dataset Overview***
 
-This dataset contains the annual total number of industrial enterprises operating across Turkey. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.
+Industrial Enterprise Data contains the annual total number of industrial enterprises operating across Turkey. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.
 
-***R&D Data***
-
-This dataset includes the annual number of R&D personnel employed by industrial and service sector enterprises across Turkey. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&D personnel data directly reflect scientific capacity, the variable holds strategic importance.
+R&D Data includes the annual number of R&D personnel employed by industrial and service sector enterprises across Turkey. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&D personnel data directly reflect scientific capacity, the variable holds strategic importance.
 
 Both variables are quantitative and structured in a yearly time-series format. This structure allows for the application of both visual and model-based analytical techniques.
 
-***Potential Analytical Approaches***
+### Key Visualizations
 
-The types of analyses planned to be implemented in the project can be grouped under the following categories:
+***Trends in the Total Number of Industrial Enterprises Over Time***
 
-***Time-Series Visualizations***
+```{r}
 
-Using advanced visualization libraries such as ggplot2, the temporal changes in the number of industrial enterprises and R&D personnel will be presented through line graphs. These visualizations will facilitate intuitive interpretation of trends over time.
+library(ggplot2)
+ggplot(veri_birlesik, aes(x = Year, y = `Total Number of Enterprises`)) +
+  geom_line(color = "steelblue", linewidth = 1.2) +
+  geom_point(size = 2) +
+  labs(title = "Total Number of Industrial Enterprises Over Time",
+       y = "Number of Enterprises",
+       x = "Year") +
+  theme_minimal()
 
-***Correlation Analysis (Pearson Coefficient)***
+```
 
-The strength of the linear relationship between the number of industrial enterprises and the number of R&D personnel will be measured using the Pearson correlation coefficient. This analysis will indicate both the direction and the magnitude of the linear association between the two variables.
+The figure shows a steady upward trend in the total number of industrial enterprises in Turkey between 2009 and 2022. The growth, which was limited in the 2009-2015 period, gained momentum after 2016; a significant increase was observed especially between 2020-2021. This rapid rise can be attributed to the transformation in production structures and digitalization during the pandemic period. However, the stagnation in 2022 points to the impact of market saturation or macroeconomic constraints. Overall, there is a quantitative growth in industrial entrepreneurship, but the sustainability and qualitative effects of this growth should be evaluated separately.
 
-***Linear Regression Analysis***
+***Distribution of R&D Personnel by Educational Attainment***
 
-A simple linear regression model will be constructed using the lm() function, where the number of enterprises will serve as the independent variable and the R&D workforce as the dependent variable. This will allow for testing potential cause-and-effect relationships.
+```{r}
+# Required packages
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(scales)
 
-***Causal Relationship Assessment***
+# Read the Excel file
+df <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx")
 
-The results of the regression analysis will be used to evaluate the impact of industrial entrepreneurship on R&D capacity. This, in turn, will enable inferences regarding the level of integration between industrial policies and science and technology strategies.
+# Filter between 2009 and 2023
+df_filtered <- df %>%
+  filter(Year >= 2009 & Year <= 2023)
+
+# Group by Year and Education Level
+df_grouped <- df_filtered %>%
+  group_by(Year, `Education level`) %>%
+  summarise(Total = sum(Number, na.rm = TRUE), .groups = "drop")
+
+# Plot
+ggplot(df_grouped, aes(x = Year, y = Total, group = 1)) +
+  geom_line(color = "steelblue", size = 1) +
+  geom_point(color = "steelblue", size = 2) +
+  facet_wrap(~ `Education level`, scales = "free_y") +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Distribution of R&D Personnel by Education Level (2009–2023)",
+    x = "Year",
+    y = "Number of Personnel"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+
+An analysis of the distribution of R&D personnel in Turkey by educational level between 2009 and 2023 reveals that the number of bachelor's degree graduates is by far the highest and has been increasing rapidly over the years. While there is also an increase in the number of master's and associate's degree graduates, it is noteworthy that the number of personnel with a doctorate degree and above remains relatively limited. This indicates that there is an increasing need for highly qualified human resources in R&D activities, but this need has not yet been adequately met. While the proportion of high school graduates tends to decrease over time, the number of personnel in the “other” category fluctuates. In general, it can be said that there is a transformation in the R&D personnel structure towards higher levels of education.
+
+***Distribution of R&D Personnel by Gender***
+
+```{r}
+library(ggplot2)
+library(readxl)
+library(dplyr)
+library(scales)
+
+# Excel dosyasını oku
+df <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx")
+
+# 2009–2023 filtrele
+df_filtered <- df %>%
+  filter(Year >= 2009 & Year <= 2023)
+
+# Cinsiyete göre yıllık toplam
+df_gender <- df_filtered %>%
+  group_by(Year, Gender) %>%
+  summarise(Total = sum(Number, na.rm = TRUE), .groups = "drop")
+
+# Grafik
+ggplot(df_gender, aes(x = Year, y = Total, color = Gender, group = Gender)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  scale_y_continuous(labels = scales::comma) +
+  labs(
+    title = "Distribution of R&D Personnel by Gender (2009–2023)",
+    x = "Year",
+    y = "Number of Personnel",
+    color = "Gender"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+An analysis of the distribution of personnel employed in R&D in Turkey between 2009 and 2023 by gender shows that the number of male personnel increased steadily every year, reaching over 135,000 by 2023. The number of female personnel has shown a similar upward trend; however, this increase has been more limited compared to men, reaching approximately 60,000 in 2023. This indicates that a gender-based imbalance persists in the R&D sector.
+
+It is noteworthy that the increase in the number of female personnel gained momentum especially after 2016. This increase shows that women's participation in R&D activities has strengthened and that there has been a positive development in terms of gender equality. However, the current picture reveals the need for more comprehensive and sustainable policies to increase the representation of women in R&D.
+
+***Share of Female R&D Personnel***
+
+```{r}
+library(ggplot2)
+library(readxl)
+library(dplyr)
+
+# Excel dosyasını oku
+df <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx")
+
+# 2009–2023 filtrele
+df_filtered <- df %>%
+  filter(Year >= 2009 & Year <= 2023)
+
+# Cinsiyet bazında yıllık toplamlar
+df_gender <- df_filtered %>%
+  group_by(Year, Gender) %>%
+  summarise(Total = sum(Number, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = Gender, values_from = Total)
+
+# Sütun adlarını düzelt
+colnames(df_gender) <- c("Year", "Female", "Male")
+
+# Kadın oranını hesapla
+df_gender <- df_gender %>%
+  mutate(Female_Ratio = Female / (Female + Male) * 100)
+
+df_gender$Year <- as.integer(df_gender$Year)
+
+# Geliştirilmiş grafik
+ggplot(df_gender, aes(x = Year, y = Female_Ratio, group = 1)) +
+  geom_line(color = "#C51B7D", size = 1.5, linetype = "solid") +
+  geom_point(color = "#C51B7D", size = 3, shape = 21, fill = "white", stroke = 1) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), limits = c(20, 30)) +
+  scale_x_continuous(breaks = seq(2009, 2023, by = 1)) +
+  labs(
+    title = "Female Share of R&D Personnel in Turkey (2009–2023)",
+    subtitle = "Proportion of female employees among all R&D personnel over time",
+    x = "Year",
+    y = "Female Share (%)"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(color = "gray30"),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank()
+  )
+```
+
+Between 2009 and 2023, the ratio of female employees in the R&D sector in Turkey increased steadily. From 21.5% in 2009, the proportion of female employees increased to 27.8% by 2023. This increase shows that women's participation in R&D activities is strengthening and that there is a positive trend towards gender equality. However, the ratio is still below 30%, indicating that policies to increase the representation of women in R&D need to be sustained and further supported.
 
 ## 3.1 Exploratory Data Analysis
 
-xxxxxx
+### Correlation Analysis
+
+```{r}
+library(readxl)
+library(dplyr)
+library(tidyr)
+
+# Read the Excel files
+enterprises <- read_excel("Sanayi-toplam girisim sayisi.xlsx")
+rd <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx")
+
+# Filter for the years 2009–2023
+enterprises <- enterprises %>% filter(Year >= 2009 & Year <= 2023)
+rd <- rd %>% filter(Year >= 2009 & Year <= 2023)
+
+rd$Year <- as.integer(rd$Year)
+enterprises$Year <- as.integer(enterprises$Year)
+
+# Proceed with merging
+merged <- rd %>%
+  left_join(enterprises, by = "Year")
+
+# Summarize R&D personnel by education level and year
+education_summary <- merged %>%
+  group_by(Year, `Education level`) %>%
+  summarise(Total = sum(Number, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = `Education level`, values_from = Total)
+
+# Merge with enterprise numbers
+correlation_data <- left_join(education_summary, enterprises, by = "Year") %>%
+  rename(Enterprises = `Total Number of Enterprises`)
+
+# Pearson correlation analysis
+education_vars <- names(correlation_data)[!(names(correlation_data) %in% c("Year", "Enterprises"))]
+
+for (var in education_vars) {
+  test_data <- correlation_data %>% select(Enterprises, all_of(var)) %>% drop_na()
+  
+  if (nrow(test_data) >= 3) {
+    result <- cor.test(test_data[[1]], test_data[[2]], method = "pearson")
+    
+    cat("----", var, "----\n")
+    cat("Pearson Correlation Coefficient (r):", round(result$estimate, 2), "\n")
+    cat("p-value:", signif(result$p.value, 4), "\n\n")
+  } else {
+    cat("----", var, "----\n")
+    cat("Insufficient data: correlation test could not be performed.\n\n")
+  }
+}
+```
+
+Positive and strong correlation coefficients are observed for all education levels (except “Other”). In particular, there is an almost perfect linear relationship between bachelor's degree graduates (r = 1.00, p \< 0.001) and the number of industrial enterprises. This suggests that the number of R&D personnel employed at the bachelor's level increases systematically with the increase in the number of enterprises. Similarly, master's (r = 0.98) and associate degree (r = 0.97) graduates also exhibit very strong and highly statistically significant relationships. Strong positive correlations are also obtained for PhD and high school graduates (r = 0.96 and r = 0.94, respectively), suggesting that industrial development generally increases the demand for R&D personnel from all educational levels.
+
+The notable exception is the category “Other”. A negative correlation coefficient (r = -0.87, p \< 0.001) was calculated in this group. This suggests that the number of staff with “Other” educational attainment decreases as the number of enterprises increases, suggesting that industrialization has pushed this group of staff out of the system or that employment patterns have changed. This result suggests that the definitions of education level should be clarified and the transformation in this group should be examined in detail.
 
 ## 3.2 Trend Analysis
 
