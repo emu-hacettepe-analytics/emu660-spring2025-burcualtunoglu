@@ -175,8 +175,6 @@ Both variables are quantitative and structured in a yearly time-series format. T
 
 ### Key Visualizations
 
-***Trends in the Total Number of Industrial Enterprises Over Time***
-
 ```{r}
 
 library(ggplot2)
@@ -191,8 +189,6 @@ ggplot(veri_birlesik, aes(x = Year, y = `Total Number of Enterprises`)) +
 ```
 
 The figure shows a steady upward trend in the total number of industrial enterprises in Turkiye between 2009 and 2022. The growth, which was limited in the 2009-2015 period, gained momentum after 2016; a significant increase was observed especially between 2020-2021. This rapid rise can be attributed to the transformation in production structures and digitalization during the pandemic period. However, the stagnation in 2022 points to the impact of market saturation or macroeconomic constraints. Overall, there is a quantitative growth in industrial entrepreneurship, but the sustainability and qualitative effects of this growth should be evaluated separately.
-
-***Distribution of R&D Personnel by Educational Attainment***
 
 ```{r}
 # Required packages
@@ -215,7 +211,7 @@ df_grouped <- df_filtered %>%
 
 # Plot
 ggplot(df_grouped, aes(x = Year, y = Total, group = 1)) +
-  geom_line(color = "steelblue", size = 1) +
+  geom_line(color = "steelblue", linewidth = 1) +
   geom_point(color = "steelblue", size = 2) +
   facet_wrap(~ `Education level`, scales = "free_y") +
   scale_y_continuous(labels = comma) +
@@ -227,11 +223,10 @@ ggplot(df_grouped, aes(x = Year, y = Total, group = 1)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
+
 ```
 
 An analysis of the distribution of R&D personnel in Turkiye by educational level between 2009 and 2023 reveals that the number of bachelor's degree graduates is by far the highest and has been increasing rapidly over the years. While there is also an increase in the number of master's and associate's degree graduates, it is noteworthy that the number of personnel with a doctorate degree and above remains relatively limited. This indicates that there is an increasing need for highly qualified human resources in R&D activities, but this need has not yet been adequately met. While the proportion of high school graduates tends to decrease over time, the number of personnel in the “other” category fluctuates. In general, it can be said that there is a transformation in the R&D personnel structure towards higher levels of education.
-
-***Distribution of R&D Personnel by Gender***
 
 ```{r}
 library(ggplot2)
@@ -253,7 +248,7 @@ df_gender <- df_filtered %>%
 
 # Grafik
 ggplot(df_gender, aes(x = Year, y = Total, color = Gender, group = Gender)) +
-  geom_line(size = 1.2) +
+  geom_line(linewidth = 1.2) +
   geom_point(size = 2) +
   scale_y_continuous(labels = scales::comma) +
   labs(
@@ -269,8 +264,6 @@ ggplot(df_gender, aes(x = Year, y = Total, color = Gender, group = Gender)) +
 An analysis of the distribution of personnel employed in R&D in Turkiye between 2009 and 2023 by gender shows that the number of male personnel increased steadily every year, reaching over 135,000 by 2023. The number of female personnel has shown a similar upward trend; however, this increase has been more limited compared to men, reaching approximately 60,000 in 2023. This indicates that a gender-based imbalance persists in the R&D sector.
 
 It is noteworthy that the increase in the number of female personnel gained momentum especially after 2016. This increase shows that women's participation in R&D activities has strengthened and that there has been a positive development in terms of gender equality. However, the current picture reveals the need for more comprehensive and sustainable policies to increase the representation of women in R&D.
-
-***Share of Female R&D Personnel***
 
 ```{r}
 library(ggplot2)
@@ -301,13 +294,12 @@ df_gender$Year <- as.integer(df_gender$Year)
 
 # Geliştirilmiş grafik
 ggplot(df_gender, aes(x = Year, y = Female_Ratio, group = 1)) +
-  geom_line(color = "#C51B7D", size = 1.5, linetype = "solid") +
+  geom_line(color = "#C51B7D", linewidth = 1.5, linetype = "solid") +
   geom_point(color = "#C51B7D", size = 3, shape = 21, fill = "white", stroke = 1) +
   scale_y_continuous(labels = scales::percent_format(scale = 1), limits = c(20, 30)) +
   scale_x_continuous(breaks = seq(2009, 2023, by = 1)) +
   labs(
-    title = "Female Share of R&D Personnel in Turkiye (2009–2023)",
-    subtitle = "Proportion of female employees among all R&D personnel over time",
+    title = "Female Share in R&D Personnel\n(2009–2023)",
     x = "Year",
     y = "Female Share (%)"
   ) +
@@ -398,24 +390,24 @@ library(patchwork)
 enterprises <- read_excel("Sanayi-toplam girisim sayisi.xlsx")
 rd <- read_excel("Sanayi Hizmet Kuruluslari ArGe Faaliyetleri.xlsx")
 
-# Yıl tipini düzelt
+# Yıl düzelt
 enterprises$Year <- as.integer(enterprises$Year)
 rd$Year <- as.integer(rd$Year)
 
-# 2009–2023 yılları filtrele
+# Yıl filtrele
 enterprises <- enterprises %>% filter(Year >= 2009 & Year <= 2023)
 rd <- rd %>% filter(Year >= 2009 & Year <= 2023)
 
-# Eğitim düzeyine göre personel sayılarını özetle
+# Eğitim düzeyine göre özet
 education_summary <- rd %>%
   group_by(Year, `Education level`) %>%
   summarise(Total = sum(Number, na.rm = TRUE), .groups = "drop") %>%
   pivot_wider(names_from = `Education level`, values_from = Total)
 
-# Girişim verisi ile birleştir
+# Birleştir
 df_regression <- left_join(education_summary, enterprises, by = "Year")
 
-# Eğitim düzeyleri
+# Eğitim seviyeleri
 education_levels <- c(
   "Bachelor's Degree",
   "Master's Degree",
@@ -423,25 +415,43 @@ education_levels <- c(
   "Doctorate or Higher",
   "High School"
 )
+output_lines <- c()
 
 for (level in education_levels) {
   # Model kur
   formula_text <- as.formula(paste0("`", level, "` ~ `Total Number of Enterprises`"))
   model <- lm(formula_text, data = df_regression)
-  
-  # Sayısal özet
-  cat("\n\n========================================\n")
-  cat("Regression Summary for:", level, "\n")
-  cat("========================================\n")
   summary_out <- summary(model)
-  cat("Intercept (β₀):", round(coef(model)[1], 2), "\n")
-  cat("Slope (β₁):", round(coef(model)[2], 5), "\n")
-  cat("R²:", round(summary_out$r.squared, 4), "\n")
-  cat("p-value (slope):", signif(summary_out$coefficients[2, 4], 4), "\n")
-  cat("F-statistic:", round(summary_out$fstatistic[1], 2), "\n")
   
-  # Grafik
-  g <- ggplot(df_regression, aes_string(x = "`Total Number of Enterprises`", y = paste0("`", level, "`"))) +
+  # Değerleri al
+  intercept <- round(coef(model)[1], 2)
+  slope <- round(coef(model)[2], 5)
+  r2 <- round(summary_out$r.squared, 4)
+  pval <- formatC(summary_out$coefficients[2, 4], format = "e", digits = 2)
+  fstat <- round(summary_out$fstatistic[1], 2)
+  
+  # Metinleri oluştur
+  section <- c(
+    paste0("\n", strrep("=", 50)),
+    sprintf("Regression Summary for: %s", level),
+    strrep("=", 50),
+    sprintf("%-20s: %12s", "Intercept (β₀)", intercept),
+    sprintf("%-20s: %12s", "Slope (β₁)", slope),
+    sprintf("%-20s: %12s", "R²", r2),
+    sprintf("%-20s: %12s", "p-value (slope)", pval),
+    sprintf("%-20s: %12s", "F-statistic", fstat)
+  )
+  
+  output_lines <- c(output_lines, section)
+}
+
+# Hepsini tek seferde bastır
+cat(paste(output_lines, collapse = "\n"))
+# Grafik listesi
+plot_list <- list()
+
+for (level in education_levels) {
+  p <- ggplot(df_regression, aes(x = `Total Number of Enterprises`, y = .data[[level]])) +
     geom_point(color = "#08306B", size = 3) +
     geom_smooth(method = "lm", formula = y ~ x, se = TRUE, color = "#EF3B2C", linewidth = 1.2) +
     scale_x_continuous(labels = comma) +
@@ -451,15 +461,31 @@ for (level in education_levels) {
       x = "Total Number of Enterprises",
       y = "Number of R&D Personnel"
     ) +
-    theme_minimal(base_size = 14) +
+    theme_minimal(base_size = 13) +
     theme(
-      plot.title = element_text(face = "bold"),
-      axis.text.x = element_text(angle = 45, hjust = 1),
-      panel.grid.minor = element_blank()
+      plot.title = element_text(face = "bold", size = 11),
+      axis.text.x = element_text(angle = 45, hjust = 1)
     )
   
-  print(g)
+  plot_list[[level]] <- p
 }
+
+# 3+2 düzenleme (patchwork)
+final_plot <- 
+  (plot_list[[1]] + plot_list[[2]] + plot_list[[3]]) / 
+  (plot_list[[4]] + plot_list[[5]]) +
+  plot_layout(guides = "collect") & 
+  theme(
+    plot.title = element_text(size = 10, face = "bold"),
+    axis.title = element_text(size = 9),
+    axis.text = element_text(size = 8, angle = 30),
+    legend.position = "none"
+  )
+
+# Göster
+print(final_plot)
+
+
 ```
 
 ### Model Summaries and Interpretation
@@ -564,12 +590,12 @@ $$
 
 **Interpretation of Coefficients:**
 
-| Variable | Coefficient ((\beta)) | p-value | Significance |
-|----|----|----|----|
-| Intercept | 3428 | 0.575 | Not significant |
-| Total Enterprises | -0.00132 | 0.508 | Not significant |
-| Male | +0.0888 | 0.076 | Marginally significant (p ≈ 0.0756) |
-| Female | -0.0779 | 0.0581 | Not significant |
+| Variable          | Coefficient  | p-value | Significance                        |
+|-------------------|--------------|---------|-------------------------------------|
+| Intercept         | 3428         | 0.575   | Not significant                     |
+| Total Enterprises | -0.00132     | 0.508   | Not significant                     |
+| Male              | +0.0888      | 0.076   | Marginally significant (p ≈ 0.0756) |
+| Female            | -0.0779      | 0.0581  | Not significant                     |
 
 **Model Performance:**
 
@@ -607,9 +633,11 @@ summary(model_genis)
 
 **Regression Equation:**
 
-$$
-\text{PhD} = 8832 - 0.0036 \cdot \text{Enterprises} + 0.5107 \cdot \text{Master's} + 0.0339 \cdot \text{Bachelor's} - 0.6003 \cdot \text{Associate} + 0.0036 \cdot \text{Other} + 14014 \cdot \text{Female Ratio}
-$$
+\begin{multline*}
+\text{PhD} = 8832 - 0.0036 \cdot \text{Enterprises} + 0.5107 \cdot \text{Master's} \\
++ 0.0339 \cdot \text{Bachelor's} - 0.6003 \cdot \text{Associate} \\
++ 0.0036 \cdot \text{Other} + 14014 \cdot \text{Female}
+\end{multline*}
 
 **Interpretation of Coefficients:**
 
@@ -631,8 +659,6 @@ $$
 -   Residual standard error = 246.3
 
 This model analyzes the relationship between the number of PhD-level R&D personnel and entrepreneurship and personnel structure. The model has a high explanatory power with an R² value of 98.5%. While master's degree graduates have a positive and borderline significant effect, the effect of associate degree graduates is negative and borderline significant. Although the female ratio has a high effect coefficient, it is not statistically significant. This suggests that the interactions between education levels are determinant in the transition to doctoral level and that the gender effect is not direct.
-
-### Final Remarks
 
 Multivariate analysis confirms that PhD-level personnel are influenced more by internal structural factors such as the number of master's degree holders, rather than external macro indicators like the total number of enterprises. To improve interpretability, future models could apply variance inflation factor (VIF) analysis or dimensionality reduction techniques to mitigate multicollinearity effects.
 
@@ -673,10 +699,10 @@ AIC(model_multi1, model_multi2)
 ```
 :::
 
-| Model   | $R^2$  | Adjusted $R^2$ | AIC      | Description |
-|---------|--------|----------------|----------|-------------|
-| Model 1 | 0.9643 | 0.9545         | 221.3032 |             |
-| Model 2 | 0.9849 | 0.9737         | 214.3404 |             |
+| Model   | $R^2$  | Adjusted $R^2$ | AIC      |
+|---------|--------|----------------|----------|
+| Model 1 | 0.9643 | 0.9545         | 221.3032 |
+| Model 2 | 0.9849 | 0.9737         | 214.3404 |
 
 : Comparison of Regression Model Performance
 
