@@ -165,15 +165,11 @@ With this structure, the project will enable a detailed statistical investigatio
 \
 The two datasets used in this project consist of quantitative variables that are well-suited for time-series analysis in terms of both content and structure. The key features of these datasets are summarized below:
 
-### ***Dataset Overview***
-
 Industrial Enterprise Data contains the annual total number of industrial enterprises operating across Turkiye. For example, in 2009, the number of active enterprises nationwide was recorded at approximately 3.2 million. The data are published regularly on a yearly basis and provide a macro-level representation of the dynamics of the industrial sector.
 
 R&D Data includes the annual number of R&D personnel employed by industrial and service sector enterprises across Turkiye. The distribution of this variable over the years ranges approximately from 10,000 to 40,000 individuals. Given that R&D personnel data directly reflect scientific capacity, the variable holds strategic importance.
 
 Both variables are quantitative and structured in a yearly time-series format. This structure allows for the application of both visual and model-based analytical techniques.
-
-### Key Visualizations
 
 ```{r}
 
