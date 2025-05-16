@@ -1,5 +1,12 @@
 ---
 title: "An Evolutionary Analysis of Industrial Entrepreneurship and R&D Resources in Turkiye"
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    code-copy: true
+    embed-resources: true
+    css: styles.css
 ---
 
 #### ***Burcu ALTUNOĞLU - Mustafa Erdem BAKIR***
@@ -586,12 +593,12 @@ $$
 
 **Interpretation of Coefficients:**
 
-| Variable          | Coefficient  | p-value | Significance                        |
-|-------------------|--------------|---------|-------------------------------------|
-| Intercept         | 3428         | 0.575   | Not significant                     |
-| Total Enterprises | -0.00132     | 0.508   | Not significant                     |
-| Male              | +0.0888      | 0.076   | Marginally significant (p ≈ 0.0756) |
-| Female            | -0.0779      | 0.0581  | Not significant                     |
+| Variable          | Coefficient | p-value | Significance                        |
+|----------------|----------------|----------------|-------------------------|
+| Intercept         | 3428        | 0.575   | Not significant                     |
+| Total Enterprises | -0.00132    | 0.508   | Not significant                     |
+| Male              | +0.0888     | 0.076   | Marginally significant (p ≈ 0.0756) |
+| Female            | -0.0779     | 0.0581  | Not significant                     |
 
 **Model Performance:**
 
@@ -723,3 +730,5 @@ Overall, the findings suggest that the Turkish industry still relies on an under
 -   Kutner, M. H., Nachtsheim, C. J., Neter, J., & Li, W. (2005). *Applied linear statistical models* (5th ed.). McGraw-Hill/Irwin.
 
 -   Montgomery, D. C., Peck, E. A., & Vining, G. G. (2012). *Introduction to linear regression analysis* (5th ed.). Wiley.
+
+**Note**: R codes were developed with ChatGPT assistance; all report texts were written by the authors.
